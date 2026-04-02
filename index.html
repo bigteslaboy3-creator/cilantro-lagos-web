@@ -3,974 +3,1362 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-<meta name="description" content="Chop First is a bold West African kitchen in Lagos. Our food is handcrafted by our chefs using ancient cooking methods and the freshest local ingredients. Rich. Smoky. Delivered hot.">
-<title>Chop First — Bold Flavors, Zero Wait</title>
+<meta name="description" content="Cilantro Lagos — A spacious terrace destination on Victoria Island. Farm-fresh steak, authentic pizza, signature curry, world-class bar.">
+<title>Cilantro Lagos — Nature Meets Luxury</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
 
 <style>
-/* ─── TOKENS ─── */
+/* ═══════════════════════════════════
+   DESIGN TOKENS
+═══════════════════════════════════ */
 :root {
-  --dark:    #0f0a04;
-  --dark2:   #1a1008;
-  --dark3:   #231510;
-  --gold:    #b1a374;
-  --gold2:   #c9b480;
-  --orange:  #d4722a;
-  --cream:   #f0e4cc;
-  --muted:   #7a6a52;
-  --border:  rgba(177,163,116,0.15);
-  --italiana:'Italiana', serif;
-  --mont:    'Montserrat', sans-serif;
+  --forest:    #071a0f;
+  --forest2:   #0a2218;
+  --forest3:   #0e2a1e;
+  --forest4:   #061309;
+  --forest5:   #122b1d;
+  --gold:      #c9a84c;
+  --gold2:     #dfc06a;
+  --gold3:     #a8872d;
+  --gold-faint:rgba(201,168,76,0.12);
+  --cream:     #f5f0e8;
+  --cream2:    #e8e0cc;
+  --cream3:    #cfc4aa;
+  --muted:     #5a6e5e;
+  --border:    rgba(201,168,76,0.14);
+  --border2:   rgba(245,240,232,0.08);
+  --corm:      'Cormorant Garamond', serif;
+  --dm:        'DM Sans', sans-serif;
+  --shadow:    0 32px 80px rgba(0,0,0,0.5);
+  --shadow-sm: 0 8px 32px rgba(0,0,0,0.35);
 }
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
-body { background: var(--dark); color: var(--cream); font-family: var(--mont); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
-a { text-decoration: none; color: inherit; transition: color .2s; }
+body {
+  background: var(--forest);
+  color: var(--cream);
+  font-family: var(--dm);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { text-decoration: none; color: inherit; }
 img { display: block; max-width: 100%; }
+button { font-family: var(--dm); border: none; }
 
-/* ═══════════════════════════
-   NAV
-═══════════════════════════ */
+/* ─── NOISE TEXTURE ─── */
+body::before {
+  content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  opacity: 1;
+}
+
+/* ═══════════════════════════════════
+   DESKTOP NAV
+═══════════════════════════════════ */
 #nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 400;
+  height: 84px; padding: 0 64px;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 0 52px; height: 72px;
-  background: rgba(15,10,4,0); /* starts transparent */
-  transition: background .4s, backdrop-filter .4s;
+  transition: all .5s;
 }
 #nav.scrolled {
-  background: rgba(15,10,4,0.92);
-  backdrop-filter: blur(18px);
+  background: rgba(6,19,9,0.96);
+  backdrop-filter: blur(28px) saturate(1.2);
   border-bottom: 1px solid var(--border);
+  height: 72px;
 }
-.nav-logo img { height: 52px; width: auto; }
-.nav-logo-text {
-  font-family: var(--italiana); font-size: 1.9rem; color: var(--gold);
-  letter-spacing: .08em;
+.nav-logo { display: flex; flex-direction: column; gap: 1px; }
+.nav-logo-name {
+  font-family: var(--corm); font-size: 1.65rem; font-weight: 600;
+  color: var(--cream); letter-spacing: .14em; line-height: 1;
 }
-.nav-links { display: flex; gap: 36px; list-style: none; }
+.nav-logo-tag {
+  font-size: .45rem; letter-spacing: .38em; font-weight: 600;
+  color: var(--gold); text-transform: uppercase;
+}
+.nav-links { display: flex; gap: 40px; list-style: none; }
 .nav-links a {
-  font-size: .72rem; letter-spacing: .18em; font-weight: 600;
-  color: rgba(240,228,204,.65); text-transform: uppercase;
-  transition: color .2s;
+  font-size: .6rem; letter-spacing: .22em; font-weight: 500;
+  color: rgba(245,240,232,.5); text-transform: uppercase;
+  transition: color .25s; position: relative; padding-bottom: 2px;
 }
-.nav-links a:hover { color: var(--gold); }
-.nav-right { display: flex; align-items: center; gap: 16px; }
-.nav-reserve {
-  font-size: .68rem; letter-spacing: .16em; font-weight: 700;
-  text-transform: uppercase; color: var(--gold);
-  border: 1px solid var(--gold); padding: 8px 20px; border-radius: 2px;
-  transition: background .2s, color .2s;
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -2px; left: 0; width: 0;
+  height: 1px; background: var(--gold); transition: width .35s;
 }
-.nav-reserve:hover { background: var(--gold); color: var(--dark); }
-.hamburger {
+.nav-links a:hover { color: var(--cream2); }
+.nav-links a:hover::after { width: 100%; }
+.nav-right { display: flex; gap: 14px; align-items: center; }
+.btn-reserve {
+  font-size: .6rem; letter-spacing: .2em; font-weight: 700;
+  text-transform: uppercase; background: var(--gold); color: var(--forest4);
+  padding: 12px 28px; cursor: pointer; transition: background .25s, transform .15s;
+  display: inline-flex; align-items: center; gap: 8px;
+  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+}
+.btn-reserve:hover { background: var(--gold2); transform: translateY(-1px); }
+.nav-ham {
   display: flex; flex-direction: column; gap: 5px; cursor: pointer;
-  padding: 4px; width: 32px;
+  padding: 6px; width: 34px;
 }
-.hamburger span { display: block; height: 1.5px; background: var(--gold); border-radius: 1px; transition: width .2s; }
-.hamburger span:nth-child(2) { width: 65%; }
-.hamburger:hover span { width: 100%; }
+.nav-ham span { height: 1px; background: var(--gold); display: block; transition: .25s; }
+.nav-ham span:nth-child(2) { width: 60%; margin-left: auto; }
+.nav-ham:hover span { width: 100%; margin-left: 0; }
 
-/* MOBILE NAV */
+/* MOB NAV */
 .mob-nav {
-  display: none; position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-  height: 60px; padding: 0 20px; align-items: center; justify-content: space-between;
-  background: rgba(15,10,4,.95); border-bottom: 1px solid var(--border);
+  display: none; position: fixed; top: 0; left: 0; right: 0; z-index: 400;
+  height: 64px; padding: 0 20px; align-items: center; justify-content: space-between;
+  background: rgba(6,19,9,.97); border-bottom: 1px solid var(--border);
 }
-.mob-logo { font-family: var(--italiana); font-size: 1.5rem; color: var(--gold); letter-spacing: .06em; }
-.mob-right { display: flex; align-items: center; gap: 12px; }
-.mob-call {
-  font-size: .68rem; letter-spacing: .14em; font-weight: 700; text-transform: uppercase;
-  color: var(--dark); background: var(--gold); padding: 7px 14px; border-radius: 2px;
+.mob-logo-name { font-family: var(--corm); font-size: 1.4rem; font-weight: 600; color: var(--cream); letter-spacing: .12em; }
+.mob-logo-tag { font-size: .42rem; letter-spacing: .32em; color: var(--gold); font-weight: 600; text-transform: uppercase; }
+.mob-cta {
+  font-size: .58rem; letter-spacing: .14em; font-weight: 700; text-transform: uppercase;
+  background: var(--gold); color: var(--forest4); padding: 9px 18px; cursor: pointer;
+  clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
 }
 
 /* DRAWER */
-.drawer-bg {
-  position: fixed; inset: 0; z-index: 300;
-  background: rgba(0,0,0,.6); backdrop-filter: blur(4px);
+.drw-bg {
+  position: fixed; inset: 0; z-index: 500;
+  background: rgba(0,0,0,.7); backdrop-filter: blur(10px);
   opacity: 0; pointer-events: none; transition: opacity .3s;
 }
-.drawer-bg.open { opacity: 1; pointer-events: all; }
-.drawer {
-  position: fixed; top: 0; right: 0; bottom: 0; z-index: 400;
-  width: min(300px, 84vw); background: var(--dark2);
+.drw-bg.on { opacity: 1; pointer-events: all; }
+.drw {
+  position: fixed; top: 0; right: 0; bottom: 0; z-index: 600;
+  width: min(320px,88vw); background: var(--forest3);
   border-left: 1px solid var(--border);
   display: flex; flex-direction: column;
-  transform: translateX(100%);
-  transition: transform .35s cubic-bezier(.4,0,.2,1);
+  transform: translateX(100%); transition: transform .4s cubic-bezier(.4,0,.2,1);
 }
-.drawer.open { transform: translateX(0); }
-.drawer-head {
+.drw.on { transform: translateX(0); }
+.drw-head {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 22px 24px 18px; border-bottom: 1px solid var(--border);
+  padding: 26px; border-bottom: 1px solid var(--border2);
 }
-.drawer-brand { font-family: var(--italiana); font-size: 1.35rem; color: var(--gold); letter-spacing: .06em; }
-.drawer-x {
-  width: 32px; height: 32px; background: transparent; border: 1px solid var(--border);
-  border-radius: 3px; cursor: pointer; color: var(--muted); font-size: .9rem;
+.drw-brand { font-family: var(--corm); font-size: 1.25rem; font-weight: 600; color: var(--cream); letter-spacing: .12em; }
+.drw-x {
+  width: 34px; height: 34px; border: 1px solid var(--border2); background: transparent;
+  color: var(--muted); font-size: .85rem; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: .2s;
+}
+.drw-x:hover { border-color: var(--gold3); color: var(--gold); }
+.drw-links { flex: 1; padding: 22px 18px; display: flex; flex-direction: column; gap: 2px; }
+.drw-links a {
+  padding: 15px 16px; font-size: .72rem; letter-spacing: .2em; font-weight: 500;
+  text-transform: uppercase; color: rgba(245,240,232,.45);
+  display: flex; align-items: center; gap: 16px; border-radius: 2px; transition: .18s;
+}
+.drw-links a:hover { background: var(--gold-faint); color: var(--cream2); }
+.drw-links a i { color: var(--gold); font-style: normal; font-size: 1.1rem; width: 24px; }
+.drw-foot { padding: 22px; border-top: 1px solid var(--border2); display: flex; flex-direction: column; gap: 10px; }
+.drw-cta {
+  display: flex; align-items: center; justify-content: center; gap: 9px;
+  background: var(--gold); color: var(--forest4); padding: 15px;
+  font-size: .7rem; letter-spacing: .18em; font-weight: 700; text-transform: uppercase; cursor: pointer;
+}
+.drw-call {
   display: flex; align-items: center; justify-content: center;
-  transition: background .2s, color .2s;
+  border: 1px solid var(--border); color: var(--cream3); padding: 13px;
+  font-size: .7rem; letter-spacing: .14em; font-weight: 500; text-transform: uppercase; transition: .2s;
 }
-.drawer-x:hover { background: rgba(177,163,116,.12); color: var(--cream); }
-.drawer-nav { flex: 1; padding: 16px; display: flex; flex-direction: column; gap: 4px; }
-.drawer-nav a {
-  display: flex; align-items: center; gap: 12px;
-  padding: 13px 14px; border-radius: 4px;
-  font-size: .8rem; letter-spacing: .14em; font-weight: 600; text-transform: uppercase;
-  color: rgba(240,228,204,.6);
-  transition: background .15s, color .15s;
-}
-.drawer-nav a:hover { background: rgba(177,163,116,.08); color: var(--gold); }
-.drawer-nav a .ico { font-size: 1.1rem; width: 24px; }
-.drawer-foot {
-  padding: 18px 20px calc(18px + env(safe-area-inset-bottom));
-  border-top: 1px solid var(--border);
-  display: flex; flex-direction: column; gap: 10px;
-}
-.drawer-wa {
-  display: flex; align-items: center; justify-content: center; gap: 9px;
-  background: #25D366; color: #fff; padding: 12px; border-radius: 4px;
-  font-size: .78rem; letter-spacing: .1em; font-weight: 700; text-transform: uppercase;
-  border: none; cursor: pointer;
-}
-.drawer-call {
-  display: flex; align-items: center; justify-content: center; gap: 9px;
-  border: 1px solid var(--border); color: var(--gold); padding: 11px; border-radius: 4px;
-  font-size: .78rem; letter-spacing: .1em; font-weight: 600; text-transform: uppercase;
-  transition: background .2s;
-}
-.drawer-call:hover { background: rgba(177,163,116,.1); }
+.drw-call:hover { background: var(--gold-faint); }
 
-/* ═══════════════════════════
-   HERO — fullscreen parallax
-═══════════════════════════ */
+/* ═══════════════════════════════════
+   HERO  — RESTAURANT IMAGE
+═══════════════════════════════════ */
 #hero {
   position: relative; min-height: 100svh;
-  display: flex; align-items: center; justify-content: center;
+  display: flex; align-items: flex-end;
   overflow: hidden;
 }
+/* Restaurant terrace hero image */
 .hero-img {
   position: absolute; inset: 0; z-index: 0;
-  background-image: url('https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=1800&q=90');
-  background-size: cover; background-position: center 45%;
-  background-attachment: fixed;
+  background-image:
+    url('https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=1800&q=90');
+  background-size: cover; background-position: center 50%;
   transform: scale(1.04);
-  animation: hzoom 14s ease forwards;
+  animation: hzoom 20s ease forwards;
+  will-change: transform;
 }
 @keyframes hzoom { to { transform: scale(1); } }
+/* Rich layered overlay — keeps green tones */
 .hero-overlay {
   position: absolute; inset: 0; z-index: 1;
-  background: rgba(22,12,4,.42);
+  background:
+    linear-gradient(to top,  rgba(4,13,7,1) 0%, rgba(4,13,7,.85) 28%, rgba(4,13,7,.3) 60%, rgba(4,13,7,.15) 100%),
+    linear-gradient(to right, rgba(4,13,7,.6) 0%, transparent 55%);
+}
+/* Vignette */
+.hero-vignette {
+  position: absolute; inset: 0; z-index: 1;
+  box-shadow: inset 0 0 200px rgba(0,0,0,.5);
+  pointer-events: none;
 }
 .hero-content {
-  position: relative; z-index: 2; text-align: center; padding: 0 20px;
-  max-width: 820px;
+  position: relative; z-index: 2;
+  padding: 0 64px 88px; max-width: 820px; width: 100%;
 }
-.hero-eyebrow {
-  font-size: .68rem; letter-spacing: .28em; font-weight: 600;
-  color: var(--gold); text-transform: uppercase; margin-bottom: 24px;
-  display: flex; align-items: center; justify-content: center; gap: 14px;
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 14px;
+  font-size: .56rem; letter-spacing: .34em; font-weight: 600;
+  color: var(--gold); text-transform: uppercase; margin-bottom: 28px;
 }
-.hero-eyebrow::before, .hero-eyebrow::after {
-  content: ''; flex: 1; max-width: 60px; height: 1px; background: var(--gold); opacity: .5;
+.hero-tag-line { width: 36px; height: 1px; background: var(--gold); opacity: .7; }
+.hero-h1 {
+  font-family: var(--corm); font-size: clamp(4.2rem, 10.5vw, 9.5rem);
+  font-weight: 600; line-height: .88; color: var(--cream);
+  letter-spacing: .01em; margin-bottom: 8px;
 }
-.hero-title {
-  font-family: var(--italiana); font-size: clamp(3.5rem, 10vw, 8rem);
-  font-weight: 400; line-height: 1; letter-spacing: .04em;
-  color: #fff; margin-bottom: 22px;
-  text-shadow: 0 4px 40px rgba(0,0,0,.5);
+.hero-h1 em { font-style: italic; color: var(--gold); font-weight: 300; }
+.hero-h1-sub {
+  font-family: var(--corm); font-size: clamp(2rem, 4.5vw, 4rem);
+  font-weight: 300; font-style: italic; color: rgba(245,240,232,.5);
+  line-height: 1.1; margin-bottom: 36px; letter-spacing: .04em;
+}
+.hero-divider {
+  width: 64px; height: 1px; background: var(--gold); opacity: .5; margin-bottom: 28px;
 }
 .hero-sub {
-  font-size: .95rem; letter-spacing: .08em; font-weight: 300;
-  color: rgba(240,228,204,.75); line-height: 1.8; margin-bottom: 44px;
-  max-width: 540px; margin-left: auto; margin-right: auto;
+  font-size: .84rem; font-weight: 300; line-height: 2;
+  color: rgba(245,240,232,.65); max-width: 420px;
+  letter-spacing: .03em; margin-bottom: 48px;
 }
-.hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
 .btn-gold {
-  display: inline-flex; align-items: center; gap: 9px;
-  border: 1px solid var(--gold); color: var(--gold);
-  padding: 14px 32px; font-size: .72rem; letter-spacing: .18em;
-  font-weight: 700; text-transform: uppercase; font-family: var(--mont);
-  transition: background .2s, color .2s;
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--gold); color: var(--forest4);
+  padding: 16px 38px; font-size: .65rem; letter-spacing: .22em;
+  font-weight: 700; text-transform: uppercase; cursor: pointer; transition: .25s;
+  clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
 }
-.btn-gold:hover { background: var(--gold); color: var(--dark); }
-.btn-wa {
-  display: inline-flex; align-items: center; gap: 9px;
-  background: #25D366; color: #fff;
-  padding: 14px 32px; font-size: .72rem; letter-spacing: .18em;
-  font-weight: 700; text-transform: uppercase; font-family: var(--mont);
-  transition: background .2s, transform .15s;
+.btn-gold:hover { background: var(--gold2); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(201,168,76,.25); }
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 10px;
+  border: 1px solid rgba(245,240,232,.25); color: rgba(245,240,232,.8);
+  padding: 16px 36px; font-size: .65rem; letter-spacing: .22em;
+  font-weight: 600; text-transform: uppercase; transition: .25s; cursor: pointer; background: transparent;
 }
-.btn-wa:hover { background: #1daa52; }
-.btn-wa:active { transform: scale(.97); }
+.btn-ghost:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+/* Floating card stats — right side */
+.hero-stats {
+  position: absolute; right: 64px; bottom: 88px; z-index: 2;
+  display: flex; flex-direction: column; gap: 2px;
+}
+.hero-stat {
+  background: rgba(6,19,9,.75);
+  backdrop-filter: blur(20px) saturate(1.3);
+  border: 1px solid var(--border);
+  padding: 16px 24px;
+  display: flex; align-items: center; gap: 16px;
+  transition: background .25s;
+  min-width: 200px;
+}
+.hero-stat:hover { background: rgba(10,34,24,.9); }
+.hero-stat-num { font-family: var(--corm); font-size: 1.9rem; color: var(--gold); font-weight: 600; line-height: 1; }
+.hero-stat-label { font-size: .58rem; letter-spacing: .18em; font-weight: 600; text-transform: uppercase; color: var(--muted); }
+
+/* Scroll indicator */
 .hero-scroll {
-  position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
-  z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 8px;
-  font-size: .6rem; letter-spacing: .2em; color: rgba(240,228,204,.4); text-transform: uppercase;
-  animation: bounce 2s ease-in-out infinite;
+  position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%); z-index: 2;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
 }
-.hero-scroll svg { opacity: .4; }
-@keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(8px)} }
-
-/* ═══════════════════════════
-   ABOUT
-═══════════════════════════ */
-#about {
-  background: var(--dark); padding: 110px 0;
+.hero-scroll-track {
+  width: 1px; height: 52px; background: rgba(245,240,232,.15); position: relative; overflow: hidden;
 }
-.about-inner {
-  max-width: 1200px; margin: 0 auto; padding: 0 52px;
-  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+.hero-scroll-track::after {
+  content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 50%;
+  background: var(--gold); animation: scrolltrack 2s ease-in-out infinite;
 }
-.about-text {}
-.section-label {
-  font-size: .65rem; letter-spacing: .24em; font-weight: 700;
-  color: var(--gold); text-transform: uppercase; margin-bottom: 14px;
-}
-.about-title {
-  font-family: var(--italiana); font-size: clamp(2.2rem, 4vw, 3.6rem);
-  font-weight: 400; color: var(--cream); line-height: 1.12;
-  margin-bottom: 28px; letter-spacing: .03em;
-}
-.about-body {
-  font-size: .88rem; font-weight: 300; line-height: 1.9;
-  color: rgba(240,228,204,.65); margin-bottom: 18px;
-}
-.about-body + .about-body { margin-bottom: 36px; }
-.about-img {
-  position: relative;
-}
-.about-img img {
-  width: 100%; height: 600px; object-fit: cover;
-}
-.about-img::before {
-  content: ''; position: absolute;
-  top: -16px; left: -16px; right: 16px; bottom: 16px;
-  border: 1px solid var(--border); z-index: -1; pointer-events: none;
+@keyframes scrolltrack { 0%{top:-50%} 100%{top:100%} }
+.hero-scroll-label {
+  font-size: .5rem; letter-spacing: .3em; color: rgba(245,240,232,.3); text-transform: uppercase;
+  writing-mode: vertical-rl;
 }
 
-/* ═══════════════════════════
-   CALLOUT STRIP
-═══════════════════════════ */
-#callout {
-  padding: 100px 52px;
-  background-image: url('https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=1600&q=80');
-  background-size: cover; background-position: center;
-  background-attachment: fixed;
-  position: relative; text-align: center;
+/* ═══════════════════════════════════
+   ANNOUNCEMENT BAR
+═══════════════════════════════════ */
+#announcement {
+  background: var(--gold); padding: 14px 64px;
+  display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  flex-wrap: wrap;
 }
-#callout::before {
-  content: ''; position: absolute; inset: 0;
-  background: rgba(12,6,2,.55);
+.ann-left { display: flex; align-items: center; gap: 18px; }
+.ann-icon { font-size: 1.2rem; }
+.ann-text { font-size: .68rem; letter-spacing: .14em; font-weight: 600; color: var(--forest4); text-transform: uppercase; }
+.ann-text span { font-weight: 700; }
+.ann-link {
+  font-size: .6rem; letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+  color: var(--forest4); border-bottom: 1px solid rgba(6,19,9,.3); padding-bottom: 1px;
+  transition: opacity .2s;
 }
-.callout-inner { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; }
-.callout-title {
-  font-family: var(--italiana); font-size: clamp(2rem, 5vw, 4rem);
-  color: #fff; line-height: 1.15; margin-bottom: 36px; letter-spacing: .03em;
-}
-.callout-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.ann-link:hover { opacity: .7; }
 
-/* ═══════════════════════════
-   RESERVATIONS
-═══════════════════════════ */
-#reservations {
-  background: var(--dark2); padding: 96px 52px; text-align: center;
-}
-.res-title {
-  font-family: var(--italiana); font-size: clamp(1.8rem, 4vw, 3rem);
-  font-weight: 400; color: var(--cream); margin-bottom: 20px; letter-spacing: .03em;
-}
-.res-sub {
-  font-size: .85rem; font-weight: 300; line-height: 1.9;
-  color: rgba(240,228,204,.6); max-width: 640px; margin: 0 auto 40px;
-}
-.res-hours {
-  display: inline-grid; grid-template-columns: auto auto;
-  gap: 8px 32px; text-align: left; margin-bottom: 40px;
-}
-.res-day { font-size: .78rem; letter-spacing: .1em; font-weight: 600; color: var(--gold); text-transform: uppercase; }
-.res-time { font-size: .78rem; font-weight: 300; color: rgba(240,228,204,.7); }
-.res-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-
-/* ═══════════════════════════
-   MENU SECTION
-═══════════════════════════ */
-#menu-section {
-  background: var(--dark);
-}
-.menu-header {
-  padding: 80px 52px 48px; display: flex; align-items: flex-end; justify-content: space-between;
+/* ═══════════════════════════════════
+   SERVICE BADGES
+═══════════════════════════════════ */
+#badges {
+  background: var(--forest4);
   border-bottom: 1px solid var(--border);
+  display: grid; grid-template-columns: repeat(4,1fr);
 }
-.menu-title { font-family: var(--italiana); font-size: clamp(2rem, 4vw, 3.2rem); color: var(--cream); letter-spacing: .03em; }
-.menu-sub { font-size: .8rem; font-weight: 300; color: rgba(240,228,204,.5); max-width: 360px; text-align: right; line-height: 1.7; }
+.badge-cell {
+  padding: 38px 24px; text-align: center;
+  border-right: 1px solid var(--border);
+  position: relative; overflow: hidden; cursor: default;
+}
+.badge-cell::after {
+  content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 0; height: 2px; background: var(--gold); transition: width .4s;
+}
+.badge-cell:hover::after { width: 40px; }
+.badge-cell:last-child { border-right: none; }
+.badge-ico {
+  width: 44px; height: 44px; border: 1px solid var(--border);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; margin: 0 auto 14px;
+  background: rgba(201,168,76,.06); transition: background .25s;
+}
+.badge-cell:hover .badge-ico { background: var(--gold-faint); }
+.badge-title { font-size: .62rem; letter-spacing: .2em; font-weight: 700; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+.badge-sub { font-size: .72rem; font-weight: 300; color: rgba(245,240,232,.4); line-height: 1.6; }
 
-.menu-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr);
+/* ═══════════════════════════════════
+   ABOUT
+═══════════════════════════════════ */
+#about {
+  background: var(--forest); padding: 130px 64px;
+  position: relative; overflow: hidden;
+}
+/* Decorative large letter */
+#about::before {
+  content: 'C'; position: absolute; right: -40px; bottom: -60px;
+  font-family: var(--corm); font-size: 28rem; font-weight: 700;
+  color: rgba(201,168,76,.025); line-height: 1; pointer-events: none;
+  letter-spacing: -.04em; z-index: 0;
+}
+.about-grid {
+  max-width: 1240px; margin: 0 auto;
+  display: grid; grid-template-columns: 1.15fr 1fr; gap: 90px; align-items: center;
+  position: relative; z-index: 1;
+}
+.eyebrow {
+  display: flex; align-items: center; gap: 14px;
+  font-size: .55rem; letter-spacing: .3em; font-weight: 700;
+  color: var(--gold); text-transform: uppercase; margin-bottom: 16px;
+}
+.eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--gold); opacity: .7; }
+.h2-title {
+  font-family: var(--corm); font-size: clamp(2.4rem, 4.5vw, 4rem);
+  font-weight: 600; color: var(--cream); line-height: 1.06;
+  letter-spacing: .02em; margin-bottom: 30px;
+}
+.h2-title em { font-style: italic; color: var(--gold); font-weight: 300; }
+.about-p {
+  font-size: .86rem; font-weight: 300; line-height: 2.1;
+  color: rgba(245,240,232,.55); margin-bottom: 20px;
+}
+.about-quote {
+  border-left: 2px solid var(--gold);
+  padding-left: 20px; margin: 32px 0;
+  font-family: var(--corm); font-style: italic; font-size: 1.25rem;
+  color: rgba(245,240,232,.6); line-height: 1.65; font-weight: 300;
+}
+.features-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 32px 0 40px;
+}
+.feat-item {
+  display: flex; align-items: center; gap: 10px;
+  font-size: .7rem; letter-spacing: .08em; font-weight: 400;
+  color: rgba(245,240,232,.5);
+}
+.feat-dash { width: 16px; height: 1px; background: var(--gold); flex-shrink: 0; opacity: .6; }
+
+/* Image mosaic */
+.about-mosaic {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 260px 220px;
+  gap: 8px;
+}
+.mos-cell { overflow: hidden; position: relative; }
+.mos-cell:first-child { grid-row: span 2; }
+.mos-cell img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: brightness(.8) saturate(1.15);
+  transition: transform .8s ease, filter .5s;
+}
+.mos-cell:hover img { transform: scale(1.07); filter: brightness(.95) saturate(1.2); }
+.mos-label {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 14px 16px 14px;
+  background: linear-gradient(to top, rgba(4,13,7,.95) 0%, transparent 100%);
+  font-size: .56rem; letter-spacing: .2em; font-weight: 700;
+  color: var(--gold); text-transform: uppercase;
+}
+/* Gold corner bracket */
+.mos-cell:first-child::before {
+  content: ''; position: absolute; top: 12px; right: 12px; z-index: 1;
+  width: 28px; height: 28px;
+  border-top: 1px solid rgba(201,168,76,.4);
+  border-right: 1px solid rgba(201,168,76,.4);
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════
+   MENU
+═══════════════════════════════════ */
+#menu-section {
+  background: var(--forest2); padding: 110px 0;
+}
+.menu-wrap { max-width: 1320px; margin: 0 auto; padding: 0 64px; }
+.menu-top {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  margin-bottom: 48px; flex-wrap: wrap; gap: 28px;
+}
+/* Premium tab system */
+.tabs {
+  display: flex; gap: 0; border-bottom: 1px solid var(--border);
+}
+.tab {
+  font-size: .58rem; letter-spacing: .22em; font-weight: 600; text-transform: uppercase;
+  padding: 13px 26px; background: transparent; cursor: pointer;
+  color: rgba(245,240,232,.35); transition: color .25s; border-bottom: 2px solid transparent;
+  margin-bottom: -1px; white-space: nowrap;
+}
+.tab.on { color: var(--gold); border-bottom-color: var(--gold); }
+.tab:not(.on):hover { color: var(--cream3); }
+/* Menu panels */
+.panel { display: none; }
+.panel.on { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border2); animation: panelin .4s ease; }
+@keyframes panelin { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+.cat-head {
+  grid-column: 1/-1;
+  padding: 22px 28px;
+  background: rgba(4,13,7,.8);
+  display: flex; align-items: center; gap: 16px;
+  border-bottom: 1px solid var(--border2);
+}
+.cat-head-label {
+  font-size: .58rem; letter-spacing: .26em; font-weight: 700;
+  color: var(--gold); text-transform: uppercase;
+}
+.cat-head-line { flex: 1; height: 1px; background: var(--border); }
+.dish {
+  background: var(--forest2); padding: 28px 26px;
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 18px; transition: background .2s;
+}
+.dish:hover { background: var(--forest3); }
+.dish-info { flex: 1; }
+.dish-name {
+  font-family: var(--corm); font-size: 1.2rem; color: var(--cream);
+  margin-bottom: 6px; font-weight: 500; letter-spacing: .02em;
+}
+.dish-desc { font-size: .7rem; font-weight: 300; line-height: 1.8; color: rgba(245,240,232,.42); }
+.dish-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 12px; }
+.dish-badge {
+  font-size: .46rem; letter-spacing: .16em; font-weight: 700; text-transform: uppercase;
+  border: 1px solid rgba(201,168,76,.25); color: rgba(201,168,76,.7); padding: 3px 9px;
+}
+.dish-right { text-align: right; flex-shrink: 0; }
+.dish-price { font-family: var(--corm); font-size: 1.3rem; color: var(--gold); font-weight: 600; }
+.dish-note { font-size: .56rem; color: var(--muted); font-weight: 300; margin-top: 3px; }
+
+/* ═══════════════════════════════════
+   TERRACE FEATURE
+═══════════════════════════════════ */
+#terrace {
+  position: relative; overflow: hidden;
+  min-height: 680px; display: flex; align-items: center;
+}
+.terrace-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background-image: url('https://images.unsplash.com/photo-1532452119098-a3650b3c46d3?w=1600&q=85');
+  background-size: cover; background-position: center 60%;
+}
+.terrace-overlay {
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(100deg, rgba(4,13,7,.92) 0%, rgba(4,13,7,.7) 50%, rgba(4,13,7,.25) 100%);
+}
+.terrace-content {
+  position: relative; z-index: 2;
+  padding: 100px 64px; max-width: 660px;
+}
+.terrace-ornament {
+  display: flex; align-items: center; gap: 18px; margin-bottom: 32px;
+}
+.orn-line { width: 48px; height: 1px; background: var(--gold); opacity: .5; }
+.orn-diamond {
+  width: 8px; height: 8px; background: var(--gold);
+  transform: rotate(45deg); opacity: .7;
+}
+.terrace-h2 {
+  font-family: var(--corm); font-size: clamp(2.8rem, 5.5vw, 5rem);
+  color: var(--cream); font-weight: 600; line-height: 1.04; margin-bottom: 22px;
+}
+.terrace-h2 em { font-style: italic; color: var(--gold); font-weight: 300; }
+.terrace-sub {
+  font-size: .84rem; font-weight: 300; line-height: 2;
+  color: rgba(245,240,232,.6); margin-bottom: 44px; max-width: 480px;
+}
+/* Features pill list */
+.terrace-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 44px; }
+.pill {
+  font-size: .58rem; letter-spacing: .16em; font-weight: 600; text-transform: uppercase;
+  border: 1px solid var(--border); color: rgba(245,240,232,.55);
+  padding: 7px 16px; transition: .25s;
+}
+.pill:hover { border-color: var(--gold); color: var(--gold); }
+
+/* ═══════════════════════════════════
+   SOCIAL PROOF / PRESS
+═══════════════════════════════════ */
+#press {
+  background: var(--forest4); padding: 100px 64px;
   border-top: 1px solid var(--border);
 }
-.menu-card {
-  border-right: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  position: relative; overflow: hidden; cursor: pointer;
-  transition: transform .25s;
+.press-inner { max-width: 1200px; margin: 0 auto; }
+.press-grid {
+  display: grid; grid-template-columns: repeat(4,1fr);
+  gap: 1px; background: var(--border2); margin-top: 56px;
 }
-.menu-card:nth-child(4n) { border-right: none; }
-.menu-card:hover { z-index: 2; }
-.mc-bg {
-  height: 260px; background-size: cover; background-position: center;
-  transition: transform .5s ease;
-}
-.menu-card:hover .mc-bg { transform: scale(1.06); }
-.mc-overlay {
-  position: absolute; inset: 0; top: auto; height: 260px;
-  background: linear-gradient(to top, rgba(15,10,4,.85) 0%, transparent 60%);
-}
-.mc-tag {
-  position: absolute; top: 14px; left: 14px;
-  font-size: .58rem; letter-spacing: .14em; font-weight: 700; text-transform: uppercase;
-  background: var(--dark); color: var(--gold); padding: 4px 10px;
-  border: 1px solid var(--border);
-}
-.mc-body { padding: 20px 22px 22px; background: var(--dark); border-top: 1px solid var(--border); }
-.mc-name {
-  font-family: var(--italiana); font-size: 1.3rem; color: var(--cream);
-  margin-bottom: 6px; letter-spacing: .02em;
-}
-.mc-desc { font-size: .75rem; font-weight: 300; color: rgba(240,228,204,.55); line-height: 1.65; margin-bottom: 16px; }
-.mc-footer { display: flex; align-items: center; justify-content: space-between; }
-.mc-price {
-  font-family: var(--italiana); font-size: 1.4rem; color: var(--gold);
-}
-.mc-price small { font-family: var(--mont); font-size: .65rem; color: var(--muted); font-weight: 400; }
-.add-btn {
-  font-size: .65rem; letter-spacing: .14em; font-weight: 700; text-transform: uppercase;
-  border: 1px solid var(--border); color: var(--gold); padding: 7px 16px;
-  background: transparent; cursor: pointer; font-family: var(--mont);
-  transition: background .15s, color .15s, transform .12s;
-}
-.add-btn:hover { background: var(--gold); color: var(--dark); }
-.add-btn:active { transform: scale(.94); }
-.add-btn.added { background: #207a20; color: #fff; border-color: #207a20; }
-
-/* ═══════════════════════════
-   WHY / PROMISE
-═══════════════════════════ */
-#why {
-  background: var(--dark2); padding: 96px 52px;
-}
-.why-header { text-align: center; margin-bottom: 64px; }
-.why-title {
-  font-family: var(--italiana); font-size: clamp(2rem, 4vw, 3rem);
-  color: var(--cream); letter-spacing: .03em; margin-bottom: 14px;
-}
-.why-sub { font-size: .85rem; font-weight: 300; color: rgba(240,228,204,.55); line-height: 1.8; max-width: 500px; margin: 0 auto; }
-.why-grid {
-  max-width: 1100px; margin: 0 auto;
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
-  border: 1px solid var(--border);
-}
-.why-card {
-  padding: 36px 30px; border: none;
-  background: var(--dark2);
+.press-card {
+  background: var(--forest4); padding: 36px 28px;
+  display: flex; flex-direction: column; gap: 16px;
   transition: background .2s;
 }
-.why-card:hover { background: var(--dark3); }
-.why-ico { font-size: 1.6rem; margin-bottom: 18px; }
-.why-name {
-  font-family: var(--italiana); font-size: 1.25rem; color: var(--cream);
-  margin-bottom: 10px; letter-spacing: .02em;
+.press-card:hover { background: var(--forest5); }
+.press-pub {
+  font-family: var(--corm); font-size: 1.1rem; color: rgba(245,240,232,.4);
+  font-style: italic; letter-spacing: .04em; font-weight: 400;
 }
-.why-desc { font-size: .78rem; font-weight: 300; color: rgba(240,228,204,.55); line-height: 1.75; }
-.why-divider { grid-column: 1/-1; height: 1px; background: var(--border); }
+.press-quote {
+  font-size: .72rem; font-weight: 300; line-height: 1.85;
+  color: rgba(245,240,232,.38); font-style: italic; flex: 1;
+}
+.press-link {
+  font-size: .56rem; letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+  color: var(--gold3); transition: color .2s; display: inline-flex; align-items: center; gap: 6px;
+}
+.press-link:hover { color: var(--gold); }
 
-/* ═══════════════════════════
-   STATS
-═══════════════════════════ */
+/* ═══════════════════════════════════
+   STATS ROW
+═══════════════════════════════════ */
 #stats {
-  background: var(--dark); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-  display: grid; grid-template-columns: repeat(4, 1fr);
+  background: var(--forest); padding: 0;
+  display: grid; grid-template-columns: repeat(4,1fr);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
 .stat-cell {
-  padding: 52px 20px; text-align: center;
-  border-right: 1px solid var(--border);
-  transition: background .2s;
+  padding: 56px 24px; text-align: center;
+  border-right: 1px solid var(--border); transition: background .25s;
+  position: relative; overflow: hidden;
 }
+.stat-cell::before {
+  content: ''; position: absolute; inset: 0;
+  background: var(--gold-faint); transform: scaleY(0);
+  transform-origin: bottom; transition: transform .4s cubic-bezier(.4,0,.2,1);
+}
+.stat-cell:hover::before { transform: scaleY(1); }
 .stat-cell:last-child { border-right: none; }
-.stat-cell:hover { background: var(--dark2); }
 .stat-n {
-  font-family: var(--italiana); font-size: 3.2rem; color: var(--gold);
-  line-height: 1; margin-bottom: 10px;
+  font-family: var(--corm); font-size: 3.5rem; color: var(--gold);
+  font-weight: 600; line-height: 1; margin-bottom: 10px;
+  position: relative; z-index: 1;
 }
-.stat-l { font-size: .66rem; letter-spacing: .2em; font-weight: 600; text-transform: uppercase; color: var(--muted); }
+.stat-l {
+  font-size: .6rem; letter-spacing: .22em; font-weight: 600;
+  text-transform: uppercase; color: var(--muted);
+  position: relative; z-index: 1;
+}
 
-/* ═══════════════════════════
+/* ═══════════════════════════════════
+   RESERVATIONS
+═══════════════════════════════════ */
+#reservations {
+  background: var(--forest2); padding: 110px 64px; text-align: center;
+}
+.res-wrap { max-width: 700px; margin: 0 auto; }
+.res-h2 {
+  font-family: var(--corm); font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+  color: var(--cream); font-weight: 600; margin-bottom: 18px;
+}
+.res-h2 em { font-style: italic; color: var(--gold); font-weight: 300; }
+.res-sub {
+  font-size: .82rem; font-weight: 300; line-height: 1.95;
+  color: rgba(245,240,232,.48); margin-bottom: 52px;
+}
+.hours-grid {
+  display: inline-grid; grid-template-columns: auto 1fr;
+  gap: 12px 40px; text-align: left; margin-bottom: 52px;
+}
+.h-day { font-size: .64rem; letter-spacing: .18em; font-weight: 700; color: var(--gold); text-transform: uppercase; }
+.h-time { font-size: .72rem; font-weight: 300; color: rgba(245,240,232,.55); }
+.res-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+/* Glass note */
+.res-note {
+  margin-top: 40px;
+  background: rgba(201,168,76,.05);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(16px);
+  padding: 20px 28px;
+  font-size: .74rem; font-weight: 300; line-height: 1.85;
+  color: rgba(245,240,232,.45);
+  display: flex; align-items: flex-start; gap: 12px;
+}
+.res-note-icon { font-size: 1rem; flex-shrink: 0; margin-top: 2px; }
+
+/* ═══════════════════════════════════
    FOOTER
-═══════════════════════════ */
+═══════════════════════════════════ */
 #footer {
-  background: var(--dark2); padding: 80px 52px 0;
+  background: var(--forest4); padding: 88px 64px 0;
   border-top: 1px solid var(--border);
 }
-.footer-grid {
-  display: grid; grid-template-columns: 1.4fr 1fr 1fr 1.8fr;
-  gap: 52px; padding-bottom: 64px;
+.footer-top {
+  display: grid; grid-template-columns: 1.7fr 1fr 1fr 1.6fr;
+  gap: 56px; padding-bottom: 68px;
   border-bottom: 1px solid var(--border);
 }
-.footer-brand {}
-.footer-logo {
-  font-family: var(--italiana); font-size: 2.2rem; color: var(--gold);
-  letter-spacing: .06em; margin-bottom: 16px;
+.f-logo-name { font-family: var(--corm); font-size: 2.1rem; color: var(--cream); letter-spacing: .12em; font-weight: 600; margin-bottom: 4px; line-height: 1; }
+.f-logo-tag { font-size: .45rem; letter-spacing: .34em; color: var(--gold); font-weight: 600; text-transform: uppercase; margin-bottom: 20px; display: block; }
+.f-tagline { font-size: .75rem; font-weight: 300; color: rgba(245,240,232,.38); line-height: 1.9; max-width: 240px; margin-bottom: 28px; }
+.f-socials { display: flex; gap: 10px; }
+.fsoc {
+  width: 38px; height: 38px; border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(245,240,232,.38); font-size: .85rem; transition: .2s;
 }
-.footer-tagline { font-size: .78rem; font-weight: 300; color: rgba(240,228,204,.45); line-height: 1.8; max-width: 240px; margin-bottom: 28px; }
-.footer-socials { display: flex; gap: 12px; }
-.soc-link {
-  width: 36px; height: 36px; border: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: center; border-radius: 2px;
-  color: var(--gold); font-size: .9rem; transition: background .2s, color .2s;
+.fsoc:hover { background: var(--gold); color: var(--forest4); border-color: var(--gold); }
+.f-col-title {
+  font-size: .54rem; letter-spacing: .26em; font-weight: 700;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 22px;
 }
-.soc-link:hover { background: var(--gold); color: var(--dark); }
-
-.footer-col-title {
-  font-size: .65rem; letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
-  color: var(--gold); margin-bottom: 20px;
-}
-.footer-links { display: flex; flex-direction: column; gap: 11px; }
-.footer-links a { font-size: .8rem; font-weight: 300; color: rgba(240,228,204,.5); transition: color .2s; }
-.footer-links a:hover { color: var(--gold); }
-
-.footer-address { font-size: .8rem; font-weight: 300; color: rgba(240,228,204,.5); line-height: 1.9; }
-.footer-address strong { color: rgba(240,228,204,.8); font-weight: 600; display: block; margin-bottom: 6px; }
-.footer-address a { color: var(--gold); }
-.footer-address a:hover { text-decoration: underline; }
-
-.footer-map { margin-top: 20px; }
-.footer-map iframe {
-  width: 100%; height: 180px; border: none; filter: grayscale(100%) brightness(.7) contrast(1.1);
-}
-
+.f-links { display: flex; flex-direction: column; gap: 13px; }
+.f-links a { font-size: .76rem; font-weight: 300; color: rgba(245,240,232,.4); transition: color .2s; }
+.f-links a:hover { color: var(--cream2); }
+.f-addr { font-size: .76rem; font-weight: 300; color: rgba(245,240,232,.4); line-height: 2.1; }
+.f-addr strong { color: rgba(245,240,232,.75); font-weight: 600; display: block; margin-bottom: 8px; font-size: .82rem; }
+.f-addr a { color: var(--gold); }
+.f-addr a:hover { text-decoration: underline; }
+.f-map { margin-top: 20px; }
+.f-map iframe { width: 100%; height: 160px; border: none; filter: grayscale(100%) brightness(.5) contrast(1.2) hue-rotate(80deg); }
 .footer-bottom {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 22px 0;
+  padding: 24px 0; flex-wrap: wrap; gap: 10px;
 }
-.footer-copy { font-size: .72rem; font-weight: 300; color: rgba(240,228,204,.3); letter-spacing: .04em; }
-.footer-copy a { color: var(--gold); }
+.f-copy { font-size: .62rem; font-weight: 300; color: rgba(245,240,232,.22); letter-spacing: .06em; }
+.f-copy a { color: var(--gold3); }
 
-/* ═══════════════════════════
-   CHECKOUT BAR
-═══════════════════════════ */
-#bar {
-  position: fixed; bottom: 0; left: 0; right: 0; z-index: 150;
-  padding: 14px 52px calc(14px + env(safe-area-inset-bottom));
-  background: rgba(15,10,4,.97); border-top: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: space-between; gap: 20px;
-  transform: translateY(110%);
-  transition: transform .4s cubic-bezier(.34,1.56,.64,1);
+/* ═══════════════════════════════════
+   MOBILE STICKY BAR
+═══════════════════════════════════ */
+#mob-bar {
+  display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 450;
+  grid-template-columns: 1fr 1fr;
+  padding-bottom: env(safe-area-inset-bottom);
+  box-shadow: 0 -8px 32px rgba(0,0,0,.5);
 }
-#bar.on { transform: translateY(0); }
-.bar-info-label {
-  font-family: var(--italiana); font-size: 1.1rem; color: var(--cream); letter-spacing: .02em;
+.mb-btn {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 16px 12px; font-size: .62rem; letter-spacing: .18em;
+  font-weight: 700; text-transform: uppercase; cursor: pointer; border: none;
 }
-.bar-badge {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 22px; height: 22px; border-radius: 50%;
-  background: var(--gold); color: var(--dark); font-size: .68rem; font-weight: 700;
-  vertical-align: middle; margin-right: 7px;
-}
-.bar-subtotal { font-size: .75rem; font-weight: 300; color: var(--muted); margin-top: 3px; }
-.bar-send {
-  display: inline-flex; align-items: center; gap: 9px;
-  background: #25D366; color: #fff;
-  padding: 13px 28px; font-size: .72rem; letter-spacing: .14em;
-  font-weight: 700; text-transform: uppercase; font-family: var(--mont);
-  border: none; cursor: pointer; transition: background .2s, transform .15s;
-}
-.bar-send:hover { background: #1daa52; }
-.bar-send:active { transform: scale(.96); }
+.mb-menu { background: var(--forest4); color: var(--cream2); border-top: 1px solid var(--border); border-right: 1px solid var(--border); }
+.mb-book { background: var(--gold); color: var(--forest4); }
 
-/* ═══════════════════════════
-   ANIMATIONS
-═══════════════════════════ */
-.fu { opacity: 0; transform: translateY(30px); transition: opacity .7s ease, transform .7s ease; }
+/* ═══════════════════════════════════
+   SCROLL ANIMATIONS
+═══════════════════════════════════ */
+.fu { opacity: 0; transform: translateY(32px); transition: opacity .8s ease, transform .8s ease; }
 .fu.in { opacity: 1; transform: translateY(0); }
+.fl { opacity: 0; transform: translateX(-32px); transition: opacity .85s ease, transform .85s ease; }
+.fl.in { opacity: 1; transform: translateX(0); }
+.fr { opacity: 0; transform: translateX(32px); transition: opacity .85s ease, transform .85s ease; }
+.fr.in { opacity: 1; transform: translateX(0); }
+.fs { opacity: 0; transform: scale(.96); transition: opacity .8s ease, transform .8s ease; }
+.fs.in { opacity: 1; transform: scale(1); }
 
-/* ═══════════════════════════
-   RESPONSIVE
-═══════════════════════════ */
-@media(max-width:1024px){
+/* ═══════════════════════════════════
+   RESPONSIVE — TABLET (≤1100px)
+═══════════════════════════════════ */
+@media(max-width:1100px){
+  /* Nav */
   #nav { display: none; }
   .mob-nav { display: flex; }
-  #hero { background-attachment: scroll; }
-  .hero-img { background-attachment: scroll; }
-  #callout { background-attachment: scroll; }
-  .about-inner { grid-template-columns: 1fr; padding: 0 24px; gap: 40px; }
-  .about-img::before { display: none; }
-  .about-img img { height: 340px; }
-  .menu-header { flex-direction: column; align-items: flex-start; padding: 60px 24px 36px; gap: 12px; }
-  .menu-sub { text-align: left; }
-  .menu-grid { grid-template-columns: 1fr 1fr; }
-  .menu-card:nth-child(4n) { border-right: 1px solid var(--border); }
-  .menu-card:nth-child(2n) { border-right: none; }
-  .why-grid { grid-template-columns: 1fr 1fr; }
-  #stats { grid-template-columns: repeat(2,1fr); }
-  .stat-cell:nth-child(2) { border-right: none; }
-  .stat-cell:nth-child(3) { border-right: 1px solid var(--border); border-top: 1px solid var(--border); }
-  .stat-cell:nth-child(4) { border-top: 1px solid var(--border); border-right: none; }
-  .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
-  #footer, #reservations, #why, .menu-header { padding-left: 24px; padding-right: 24px; }
-  #callout { padding: 80px 24px; }
-  #bar { padding: 12px 20px calc(12px + env(safe-area-inset-bottom)); }
-}
-@media(max-width:560px){
-  .menu-grid { grid-template-columns: 1fr; }
-  .menu-card:nth-child(n) { border-right: none; }
-  .why-grid { grid-template-columns: 1fr; }
+  #mob-bar { display: grid; }
+
+  /* Hero — push content below the 64px mobile nav */
+  #hero { align-items: flex-start; }
+  .hero-content {
+    padding: 100px 24px 100px;
+    max-width: 100%;
+  }
+  .hero-stats { display: none; }
+  .hero-scroll { display: none; }
+
+  /* Hero text — bump up from desktop tiny sizes */
+  .hero-tag { font-size: .7rem; letter-spacing: .18em; }
+  .hero-h1 { font-size: clamp(3.4rem,9vw,5.5rem); }
+  .hero-h1-sub { font-size: clamp(1.4rem,4vw,2rem); }
+  .hero-sub { font-size: .94rem; line-height: 1.85; color: rgba(245,240,232,.82); }
+  .btn-gold, .btn-ghost { font-size: .72rem; padding: 14px 28px; }
+
+  /* Announcement */
+  #announcement { padding: 14px 20px; }
+  .ann-text { font-size: .72rem; letter-spacing: .08em; }
+  .ann-link { font-size: .68rem; }
+
+  /* Badges */
+  #badges { grid-template-columns: 1fr 1fr; }
+  .badge-cell:nth-child(2) { border-right: none; }
+  .badge-cell:nth-child(3) { border-top: 1px solid var(--border); }
+  .badge-cell:nth-child(4) { border-right: none; border-top: 1px solid var(--border); }
+  .badge-title { font-size: .72rem; letter-spacing: .12em; }
+  .badge-sub { font-size: .78rem; color: rgba(245,240,232,.6); }
+
+  /* About */
+  #about { padding: 80px 24px; }
+  #about::before { display: none; }
+  .about-grid { grid-template-columns: 1fr; gap: 48px; }
+  .about-mosaic { grid-template-columns: 1fr 1fr; grid-template-rows: 200px 200px; }
+  .mos-cell:first-child { grid-row: span 1; }
+  .features-grid { grid-template-columns: 1fr; }
+  .eyebrow { font-size: .65rem; letter-spacing: .2em; }
+  .h2-title { font-size: clamp(2rem,5vw,3rem); }
+  .about-p { font-size: .92rem; line-height: 1.95; color: rgba(245,240,232,.72); }
+  .about-quote { font-size: 1.1rem; color: rgba(245,240,232,.75); }
+  .feat-item { font-size: .8rem; color: rgba(245,240,232,.7); }
+
+  /* Menu */
+  #menu-section { padding: 80px 0; }
+  .menu-wrap { padding: 0 20px; }
+  .menu-top { flex-direction: column; align-items: flex-start; gap: 20px; }
+  .tabs { overflow-x: auto; width: 100%; -webkit-overflow-scrolling: touch; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab { flex-shrink: 0; font-size: .68rem; letter-spacing: .14em; padding: 12px 20px; }
+  .panel.on { grid-template-columns: 1fr 1fr; }
+  .cat-head { grid-column: 1/-1; }
+  .cat-head-label { font-size: .68rem; letter-spacing: .18em; }
+  .dish-name { font-size: 1.1rem; }
+  .dish-desc { font-size: .78rem; line-height: 1.75; color: rgba(245,240,232,.62); }
+  .dish-badge { font-size: .56rem; }
+  .dish-price { font-size: 1.15rem; }
+
+  /* Terrace */
+  .terrace-content { padding: 80px 24px; }
+  .terrace-h2 { font-size: clamp(2.4rem,6vw,3.6rem); }
+  .terrace-sub { font-size: .9rem; line-height: 1.9; color: rgba(245,240,232,.75); }
+  .pill { font-size: .64rem; letter-spacing: .1em; padding: 8px 16px; color: rgba(245,240,232,.72); }
+
+  /* Press */
+  #press { padding: 80px 24px; }
+  .press-grid { grid-template-columns: 1fr 1fr; }
+  .press-pub { font-size: 1.15rem; color: rgba(245,240,232,.6); }
+  .press-quote { font-size: .78rem; color: rgba(245,240,232,.58); }
+  .press-link { font-size: .64rem; letter-spacing: .14em; }
+
+  /* Stats */
   #stats { grid-template-columns: 1fr 1fr; }
-  .footer-grid { grid-template-columns: 1fr; }
-  .hero-title { font-size: 3.2rem; }
+  .stat-cell:nth-child(2) { border-right: none; }
+  .stat-cell:nth-child(3) { border-top: 1px solid var(--border); }
+  .stat-cell:nth-child(4) { border-right: none; border-top: 1px solid var(--border); }
+  .stat-cell { padding: 44px 20px; }
+  .stat-n { font-size: 2.8rem; }
+  .stat-l { font-size: .68rem; letter-spacing: .14em; color: rgba(90,110,94,.9); }
+
+  /* Reservations */
+  #reservations { padding: 80px 24px 130px; }
+  .res-h2 { font-size: clamp(1.9rem,5vw,2.8rem); }
+  .res-sub { font-size: .88rem; color: rgba(245,240,232,.65); }
+  .h-day { font-size: .72rem; letter-spacing: .12em; }
+  .h-time { font-size: .8rem; color: rgba(245,240,232,.72); }
+  .res-note { font-size: .8rem; color: rgba(245,240,232,.62); }
+
+  /* Footer */
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+  #footer { padding: 64px 24px 0; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+  .f-logo-name { font-size: 1.8rem; }
+  .f-logo-tag { font-size: .52rem; letter-spacing: .24em; }
+  .f-tagline { font-size: .8rem; color: rgba(245,240,232,.55); }
+  .f-col-title { font-size: .64rem; letter-spacing: .18em; }
+  .f-links a { font-size: .84rem; color: rgba(245,240,232,.62); }
+  .f-addr { font-size: .82rem; color: rgba(245,240,232,.62); }
+
+  /* Mobile sticky bar */
+  .mb-btn { font-size: .7rem; letter-spacing: .12em; padding: 17px 12px; }
+}
+
+/* ═══════════════════════════════════
+   RESPONSIVE — SMALL PHONE (≤640px)
+═══════════════════════════════════ */
+@media(max-width:640px){
+  /* Hero */
+  .hero-content { padding: 96px 20px 110px; }
+  .hero-tag { font-size: .64rem; letter-spacing: .14em; }
+  .hero-tag-line { width: 20px; }
+  .hero-h1 { font-size: 3.2rem; line-height: .9; margin-bottom: 12px; }
+  .hero-h1-sub { font-size: 1.35rem; margin-bottom: 24px; }
+  .hero-divider { margin-bottom: 20px; }
+  .hero-sub { font-size: .9rem; line-height: 1.85; margin-bottom: 36px; color: rgba(245,240,232,.85); }
+  .hero-btns { flex-direction: column; gap: 10px; }
+  .btn-gold, .btn-ghost { width: 100%; justify-content: center; padding: 15px 24px; font-size: .72rem; }
+  /* Remove clip-path on small screens — can cause overflow */
+  .btn-gold, .btn-reserve { clip-path: none; }
+
+  /* Announcement */
+  #announcement { flex-direction: column; gap: 8px; text-align: center; padding: 14px 20px; }
+  .ann-text { font-size: .74rem; }
+
+  /* Badges — single column on very small */
+  #badges { grid-template-columns: 1fr 1fr; }
+  .badge-cell { padding: 28px 16px; }
+  .badge-ico { width: 40px; height: 40px; font-size: 1.1rem; }
+  .badge-title { font-size: .68rem; letter-spacing: .1em; }
+  .badge-sub { font-size: .74rem; line-height: 1.5; }
+
+  /* About */
+  #about { padding: 64px 20px; }
+  .eyebrow { font-size: .64rem; letter-spacing: .16em; }
+  .h2-title { font-size: 2rem; }
+  .about-p { font-size: .9rem; color: rgba(245,240,232,.75); }
+  .about-quote { font-size: 1rem; line-height: 1.7; color: rgba(245,240,232,.78); border-left-width: 2px; padding-left: 16px; }
+  .feat-item { font-size: .82rem; color: rgba(245,240,232,.72); }
+  .about-mosaic { grid-template-columns: 1fr; grid-template-rows: auto; }
+  .mos-cell img { height: 230px; }
+  .mos-label { font-size: .62rem; letter-spacing: .14em; }
+
+  /* Menu */
+  #menu-section { padding: 60px 0 80px; }
+  .menu-wrap { padding: 0 20px; }
+  .tab { font-size: .66rem; letter-spacing: .1em; padding: 12px 18px; }
+  .panel.on { grid-template-columns: 1fr; }
+  .cat-head { padding: 16px 20px 10px; }
+  .cat-head-label { font-size: .66rem; letter-spacing: .16em; }
+  .dish { padding: 22px 20px; flex-direction: column; gap: 12px; }
+  .dish-right { text-align: left; }
+  .dish-name { font-size: 1.2rem; }
+  .dish-desc { font-size: .82rem; line-height: 1.75; color: rgba(245,240,232,.68); }
+  .dish-badge { font-size: .58rem; }
+  .dish-price { font-size: 1.2rem; }
+  .dish-note { font-size: .68rem; color: rgba(90,110,94,.9); }
+
+  /* Terrace */
+  .terrace-content { padding: 64px 20px 80px; }
+  .terrace-h2 { font-size: 2.4rem; }
+  .terrace-sub { font-size: .88rem; color: rgba(245,240,232,.78); margin-bottom: 28px; }
+  .pill { font-size: .62rem; padding: 7px 14px; color: rgba(245,240,232,.75); }
+  .terrace-pills { margin-bottom: 32px; }
+
+  /* Press */
+  #press { padding: 64px 20px 80px; }
+  .press-grid { grid-template-columns: 1fr; }
+  .press-card { padding: 28px 22px; }
+  .press-pub { font-size: 1.2rem; color: rgba(245,240,232,.65); }
+  .press-quote { font-size: .82rem; color: rgba(245,240,232,.62); }
+  .press-link { font-size: .66rem; letter-spacing: .12em; color: var(--gold); }
+
+  /* Stats */
+  #stats { grid-template-columns: 1fr 1fr; }
+  .stat-cell { padding: 36px 14px; }
+  .stat-n { font-size: 2.2rem; }
+  .stat-l { font-size: .64rem; letter-spacing: .1em; }
+
+  /* Reservations */
+  #reservations { padding: 64px 20px 130px; text-align: left; }
+  .res-h2 { font-size: 1.9rem; }
+  .res-sub { font-size: .88rem; color: rgba(245,240,232,.68); }
+  .hours-grid { grid-template-columns: 1fr; gap: 4px; display: flex; flex-direction: column; }
+  .h-day { font-size: .72rem; letter-spacing: .1em; margin-top: 14px; }
+  .h-time { font-size: .82rem; color: rgba(245,240,232,.72); }
+  .res-actions { flex-direction: column; gap: 10px; }
+  .res-actions .btn-gold,
+  .res-actions .btn-ghost { width: 100%; justify-content: center; }
+  .res-note { font-size: .8rem; line-height: 1.8; color: rgba(245,240,232,.65); text-align: left; }
+  .eyebrow { justify-content: flex-start !important; }
+
+  /* Footer */
+  .footer-top { grid-template-columns: 1fr; gap: 36px; }
+  .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+  .f-logo-name { font-size: 1.7rem; }
+  .f-tagline { font-size: .82rem; color: rgba(245,240,232,.58); max-width: 100%; }
+  .f-col-title { font-size: .66rem; }
+  .f-links a { font-size: .86rem; color: rgba(245,240,232,.65); }
+  .f-addr { font-size: .84rem; line-height: 2; color: rgba(245,240,232,.65); }
+  .f-copy { font-size: .68rem; color: rgba(245,240,232,.35); }
+
+  /* Mob bar */
+  .mb-btn { font-size: .68rem; letter-spacing: .1em; padding: 16px 8px; }
+
+  /* Drawer links bigger tap targets */
+  .drw-links a { padding: 16px 14px; font-size: .78rem; }
 }
 </style>
 </head>
 <body>
 
-<!-- ═══ DESKTOP NAV ═══ -->
+<!-- CURSOR ELEMENTS -->
+<div style="position:fixed;top:0;left:0;width:8px;height:8px;border-radius:50%;background:#c9a84c;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s" id="cd"></div>
+<div style="position:fixed;top:0;left:0;width:38px;height:38px;border-radius:50%;border:1px solid rgba(201,168,76,.4);pointer-events:none;z-index:9998;transform:translate(-50%,-50%)" id="cr"></div>
+
+<!-- DESKTOP NAV -->
 <nav id="nav">
   <div class="nav-logo">
-    <span class="nav-logo-text">Chop First</span>
+    <div class="nav-logo-name">Cilantro</div>
+    <div class="nav-logo-tag">Victoria Island · Lagos</div>
   </div>
   <ul class="nav-links">
-    <li><a href="#about">About Us</a></li>
     <li><a href="#menu-section">Menu</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#terrace">Terrace</a></li>
+    <li><a href="#press">Press</a></li>
     <li><a href="#reservations">Reservations</a></li>
-    <li><a href="#footer">Contact</a></li>
   </ul>
   <div class="nav-right">
-    <a href="https://wa.me/2349000000000" class="nav-reserve" target="_blank">Order Now</a>
-    <div class="hamburger" onclick="openDrawer()">
-      <span></span><span></span><span></span>
-    </div>
+    <a href="https://wa.me/2341234567890" class="btn-reserve" target="_blank">Book a Table</a>
+    <div class="nav-ham" onclick="openDrw()"><span></span><span></span><span></span></div>
   </div>
 </nav>
 
-<!-- ═══ MOBILE NAV ═══ -->
+<!-- MOBILE NAV -->
 <div class="mob-nav">
-  <div class="mob-logo">Chop First</div>
-  <div class="mob-right">
-    <a href="tel:+2349000000000" class="mob-call">Call Us</a>
-    <div class="hamburger" onclick="openDrawer()" style="padding:0">
-      <span></span><span></span><span></span>
-    </div>
+  <div>
+    <div class="mob-logo-name">Cilantro</div>
+    <div class="mob-logo-tag">Victoria Island · Lagos</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px">
+    <button class="mob-cta" onclick="scrollTo('reservations')">Book</button>
+    <div class="nav-ham" onclick="openDrw()" style="padding:0"><span></span><span></span><span></span></div>
   </div>
 </div>
 
 <!-- DRAWER -->
-<div class="drawer-bg" id="drawerBg" onclick="closeDrawer()"></div>
-<div class="drawer" id="drawer">
-  <div class="drawer-head">
-    <div class="drawer-brand">Chop First</div>
-    <button class="drawer-x" onclick="closeDrawer()">✕</button>
+<div class="drw-bg" id="drwBg" onclick="closeDrw()"></div>
+<div class="drw" id="drw">
+  <div class="drw-head">
+    <div class="drw-brand">Cilantro Lagos</div>
+    <button class="drw-x" onclick="closeDrw()">✕</button>
   </div>
-  <div class="drawer-nav">
-    <a href="#about" onclick="closeDrawer()"><span class="ico">🍽</span> About Us</a>
-    <a href="#menu-section" onclick="closeDrawer()"><span class="ico">🍛</span> Menu</a>
-    <a href="#reservations" onclick="closeDrawer()"><span class="ico">📅</span> Reservations</a>
-    <a href="#footer" onclick="closeDrawer()"><span class="ico">📍</span> Contact</a>
+  <div class="drw-links">
+    <a href="#menu-section" onclick="closeDrw()"><i>🍽</i>Menu</a>
+    <a href="#about" onclick="closeDrw()"><i>🌿</i>About</a>
+    <a href="#terrace" onclick="closeDrw()"><i>🌳</i>The Terrace</a>
+    <a href="#press" onclick="closeDrw()"><i>✦</i>Press</a>
+    <a href="#stats" onclick="closeDrw()"><i>⭐</i>Highlights</a>
+    <a href="#reservations" onclick="closeDrw()"><i>📅</i>Reservations</a>
+    <a href="#footer" onclick="closeDrw()"><i>📍</i>Contact</a>
   </div>
-  <div class="drawer-foot">
-    <a href="https://wa.me/2349000000000" class="drawer-wa" target="_blank">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
-      Order on WhatsApp
-    </a>
-    <a href="tel:+2349000000000" class="drawer-call">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 5 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.9 2.11h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-      Call Now
-    </a>
+  <div class="drw-foot">
+    <button class="drw-cta" onclick="window.open('https://wa.me/2341234567890','_blank');closeDrw()">Book a Table via WhatsApp</button>
+    <a href="tel:+2341234567890" class="drw-call">Call Us: +234 123 456 7890</a>
   </div>
 </div>
 
-<!-- ═══ HERO ═══ -->
+<!-- ═══ HERO — RESTAURANT TERRACE ═══ -->
 <section id="hero">
   <div class="hero-img"></div>
   <div class="hero-overlay"></div>
+  <div class="hero-vignette"></div>
   <div class="hero-content">
-    <div class="hero-eyebrow">West African Kitchen · Lagos</div>
-    <h1 class="hero-title">Chop First</h1>
-    <p class="hero-sub">Our food is handcrafted by our chefs using ancient cooking methods redesigned for the modern diner. Bold. Smoky. Deeply satisfying.</p>
+    <div class="hero-tag">
+      <span class="hero-tag-line"></span>
+      Nature Meets Luxury · Est. Lagos
+      <span class="hero-tag-line"></span>
+    </div>
+    <h1 class="hero-h1">Cilantro<br><em>Lagos</em></h1>
+    <div class="hero-h1-sub">Where the terrace never ends</div>
+    <div class="hero-divider"></div>
+    <p class="hero-sub">Victoria Island's most spacious destination restaurant. Farm-fresh steak, hand-stretched pizza & signature curry — beneath Lagos' open skies.</p>
     <div class="hero-btns">
-      <a href="#menu-section" class="btn-gold">View Menu</a>
-      <a href="https://wa.me/2349000000000" class="btn-wa" target="_blank">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
-        Order Now
-      </a>
+      <button class="btn-gold" onclick="scrollTo('reservations')">
+        Book a Table
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+      <button class="btn-ghost" onclick="scrollTo('menu-section')">Explore Menu</button>
+    </div>
+  </div>
+  <!-- Floating stat cards -->
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div>
+        <div class="hero-stat-num">4.8★</div>
+        <div class="hero-stat-label">Guest Rating</div>
+      </div>
+    </div>
+    <div class="hero-stat">
+      <div>
+        <div class="hero-stat-num">7</div>
+        <div class="hero-stat-label">Days a Week</div>
+      </div>
+    </div>
+    <div class="hero-stat">
+      <div>
+        <div class="hero-stat-num">300+</div>
+        <div class="hero-stat-label">Terrace Covers</div>
+      </div>
     </div>
   </div>
   <div class="hero-scroll">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-    Scroll
+    <div class="hero-scroll-track"></div>
+    <div class="hero-scroll-label">Discover</div>
   </div>
 </section>
 
-<!-- ═══ ABOUT ═══ -->
-<section id="about">
-  <div class="about-inner">
-    <div class="about-text fu">
-      <div class="section-label">About Us</div>
-      <h2 class="about-title">Bold West African Cuisine, Cooked the Right Way.</h2>
-      <p class="about-body">Our menu is rooted in ancient cooking methods redesigned to meet the modern diner's needs. We are deeply influenced by West African flavors — the kind passed down through generations, perfected over firewood and open flame.</p>
-      <p class="about-body">We source our produce fresh daily from local Lagos markets. No frozen stock. No shortcuts. Every ingredient earns its place on the plate. Our kitchen is built on a commitment to quality that you can taste in every single bite.</p>
-      <p class="about-body">We offer a warm, relaxed atmosphere where great food meets genuine hospitality. Whether you're dining in or ordering delivery, Chop First promises the same uncompromising standard every time.</p>
-      <a href="https://wa.me/2349000000000" class="btn-gold" target="_blank" style="display:inline-flex;margin-top:8px">Order on WhatsApp →</a>
-    </div>
-    <div class="about-img fu" style="transition-delay:.15s">
-      <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=900&q=85" alt="Chop First Kitchen">
-    </div>
+<!-- ANNOUNCEMENT BAR -->
+<div id="announcement">
+  <div class="ann-left">
+    <span class="ann-icon">🎵</span>
+    <div class="ann-text"><span>Live Music Every Friday & Saturday</span> — Book early to secure your terrace table</div>
   </div>
-</section>
-
-<!-- ═══ CALLOUT ═══ -->
-<section id="callout">
-  <div class="callout-inner fu">
-    <h2 class="callout-title">We take food and community seriously,<br>and we take it Slow.</h2>
-    <div class="callout-btns">
-      <a href="#menu-section" class="btn-gold">Our Menu</a>
-      <a href="#footer" class="btn-gold">Our Location</a>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ RESERVATIONS ═══ -->
-<section id="reservations">
-  <div class="fu">
-    <div class="section-label" style="text-align:center">Reservations</div>
-    <h2 class="res-title">Walk-ins Welcome.<br>Reservations Highly Recommended.</h2>
-    <p class="res-sub">To guarantee your table, especially on weekends, we strongly advise booking ahead. Group bookings available with set menus.</p>
-    <div class="res-hours" style="margin:0 auto 40px">
-      <span class="res-day">Monday — Friday</span><span class="res-time">8:00 am — 12:00 am</span>
-      <span class="res-day">Saturday & Sunday</span><span class="res-time">10:00 am — 12:00 am</span>
-    </div>
-    <div class="res-actions">
-      <a href="tel:+2349000000000" class="btn-gold">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 5 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.9 2.11h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-        Call Us
-      </a>
-      <a href="https://wa.me/2349000000000" class="btn-wa" target="_blank">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
-        WhatsApp
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ MENU ═══ -->
-<section id="menu-section">
-  <div class="menu-header">
-    <div>
-      <div class="section-label">Our Menu</div>
-      <h2 class="menu-title">Explore Our Flavors</h2>
-    </div>
-    <p class="menu-sub">Handcrafted West African meals from premium ingredients. Bold, fresh and ready to satisfy every craving.</p>
-  </div>
-
-  <div class="menu-grid">
-
-    <div class="menu-card fu">
-      <div class="mc-bg" style="background-image:url('https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=600&q=80')"></div>
-      <div class="mc-overlay"></div>
-      <div class="mc-tag">⭐ Best Seller</div>
-      <div class="mc-body">
-        <div class="mc-name">Jollof Special</div>
-        <div class="mc-desc">Party-style Jollof rice slow-cooked over firewood, served with seasoned grilled chicken and fried plantains.</div>
-        <div class="mc-footer">
-          <div class="mc-price">₦3,500 <small>/ plate</small></div>
-          <button class="add-btn" onclick="addToCart(this,'Jollof Special',3500)">Add +</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-card fu" style="transition-delay:.08s">
-      <div class="mc-bg" style="background-image:url('https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=600&q=80')"></div>
-      <div class="mc-overlay"></div>
-      <div class="mc-tag">New</div>
-      <div class="mc-body">
-        <div class="mc-name">Pounded Yam & Egusi</div>
-        <div class="mc-desc">Silky pounded yam with rich Egusi soup, assorted meat and smoked fish. Made fresh every morning.</div>
-        <div class="mc-footer">
-          <div class="mc-price">₦4,200 <small>/ plate</small></div>
-          <button class="add-btn" onclick="addToCart(this,'Pounded Yam & Egusi',4200)">Add +</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-card fu" style="transition-delay:.14s">
-      <div class="mc-bg" style="background-image:url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&q=80')"></div>
-      <div class="mc-overlay"></div>
-      <div class="mc-tag">🌶 Spicy</div>
-      <div class="mc-body">
-        <div class="mc-name">Suya Platter</div>
-        <div class="mc-desc">Northern-style beef suya in yaji spice blend, served with onions, tomatoes and kuli-kuli.</div>
-        <div class="mc-footer">
-          <div class="mc-price">₦3,800 <small>/ platter</small></div>
-          <button class="add-btn" onclick="addToCart(this,'Suya Platter',3800)">Add +</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-card fu" style="transition-delay:.2s">
-      <div class="mc-bg" style="background-image:url('https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&q=80')"></div>
-      <div class="mc-overlay"></div>
-      <div class="mc-tag">Local Fave</div>
-      <div class="mc-body">
-        <div class="mc-name">Ofada Rice & Stew</div>
-        <div class="mc-desc">Aromatic local Ofada rice with spicy ayamase stew, assorted offals and boiled eggs.</div>
-        <div class="mc-footer">
-          <div class="mc-price">₦3,200 <small>/ plate</small></div>
-          <button class="add-btn" onclick="addToCart(this,'Ofada Rice & Stew',3200)">Add +</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-card fu" style="transition-delay:.24s">
-      <div class="mc-bg" style="background-image:url('https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&q=80')"></div>
-      <div class="mc-overlay"></div>
-      <div class="mc-tag">Limited</div>
-      <div class="mc-body">
-        <div class="mc-name">Sides & Extras</div>
-        <div class="mc-desc">Puff-puff, fried plantains, moin-moin or peppered gizzards. Build the perfect plate.</div>
-        <div class="mc-footer">
-          <div class="mc-price">₦800+ <small>/ side</small></div>
-          <button class="add-btn" onclick="addToCart(this,'Sides & Extras',800)">Add +</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-card fu" style="transition-delay:.28s">
-      <div class="mc-bg" style="background-image:url('https://images.unsplash.com/photo-1544145945-f90425340c7e?w=600&q=80')"></div>
-      <div class="mc-overlay"></div>
-      <div class="mc-tag">Refreshing</div>
-      <div class="mc-body">
-        <div class="mc-name">Drinks & Zobo</div>
-        <div class="mc-desc">House-made Zobo with ginger and pineapple, chilled Chapman, or classic Nigerian soft drinks.</div>
-        <div class="mc-footer">
-          <div class="mc-price">₦500+ <small>/ drink</small></div>
-          <button class="add-btn" onclick="addToCart(this,'Drinks & Zobo',500)">Add +</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-card fu" style="transition-delay:.32s">
-      <div class="mc-bg" style="background-image:url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80')"></div>
-      <div class="mc-overlay"></div>
-      <div class="mc-tag">Chef's Choice</div>
-      <div class="mc-body">
-        <div class="mc-name">Pepper Soup</div>
-        <div class="mc-desc">Catfish or goat meat pepper soup, slow-simmered in our signature spice blend. A warming West African classic.</div>
-        <div class="mc-footer">
-          <div class="mc-price">₦2,800 <small>/ bowl</small></div>
-          <button class="add-btn" onclick="addToCart(this,'Pepper Soup',2800)">Add +</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-card fu" style="transition-delay:.36s">
-      <div class="mc-bg" style="background-image:url('https://images.unsplash.com/photo-1512058564366-18510be2db19?w=600&q=80')"></div>
-      <div class="mc-overlay"></div>
-      <div class="mc-tag">Sunday Special</div>
-      <div class="mc-body">
-        <div class="mc-name">Nkwobi</div>
-        <div class="mc-desc">Spiced cow foot in rich palm oil and utazi leaf sauce. A bold, indulgent Igbo delicacy served to share.</div>
-        <div class="mc-footer">
-          <div class="mc-price">₦4,500 <small>/ pot</small></div>
-          <button class="add-btn" onclick="addToCart(this,'Nkwobi',4500)">Add +</button>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- ═══ WHY US ═══ -->
-<section id="why">
-  <div class="why-header fu">
-    <div class="section-label" style="text-align:center">Our Promise</div>
-    <h2 class="why-title">Crafted With Love,<br>Served With Purpose</h2>
-    <p class="why-sub">We obsess over every detail — from farm to plate — so you get the boldest West African meal, every single time.</p>
-  </div>
-  <div class="why-grid" style="max-width:1100px;margin:0 auto">
-    <div class="why-card fu"><div class="why-ico">🌿</div><div class="why-name">Premium Ingredients</div><div class="why-desc">Fresh produce sourced daily from local Lagos markets. No frozen stock, no shortcuts. Quality starts at the source.</div></div>
-    <div class="why-card fu" style="transition-delay:.07s"><div class="why-ico">🔥</div><div class="why-name">Slow Cooked & Bold</div><div class="why-desc">Every dish is cooked the traditional way — low and slow over fire. Deep, layered flavor you simply cannot fake.</div></div>
-    <div class="why-card fu" style="transition-delay:.13s"><div class="why-ico">✅</div><div class="why-name">No Nasty Additives</div><div class="why-desc">No artificial flavours, no preservatives. Just real ingredients, ancient techniques, and real taste in every bite.</div></div>
-    <div class="why-divider"></div>
-    <div class="why-card fu" style="transition-delay:.18s"><div class="why-ico">⚡</div><div class="why-name">Fast Delivery</div><div class="why-desc">Order before noon and get your meal the same day. Fresh, hot and ready to enjoy — in under 40 minutes.</div></div>
-    <div class="why-card fu" style="transition-delay:.23s"><div class="why-ico">📦</div><div class="why-name">Safe Packaging</div><div class="why-desc">Leak-proof, tamper-evident containers that keep your food fresh and secure from our kitchen to your door.</div></div>
-    <div class="why-card fu" style="transition-delay:.28s"><div class="why-ico">💯</div><div class="why-name">Satisfaction Guaranteed</div><div class="why-desc">Not happy? We fix it — no questions asked. We stand behind every plate because we know you will love it.</div></div>
-  </div>
-</section>
-
-<!-- ═══ STATS ═══ -->
-<div id="stats">
-  <div class="stat-cell fu"><div class="stat-n">18k+</div><div class="stat-l">Orders Delivered</div></div>
-  <div class="stat-cell fu" style="transition-delay:.06s"><div class="stat-n">50+</div><div class="stat-l">Dishes on Menu</div></div>
-  <div class="stat-cell fu" style="transition-delay:.12s"><div class="stat-n">8 Yrs</div><div class="stat-l">In Business</div></div>
-  <div class="stat-cell fu" style="transition-delay:.18s"><div class="stat-n">4.9★</div><div class="stat-l">Average Rating</div></div>
+  <a href="https://wa.me/2341234567890" class="ann-link" target="_blank">Reserve Now →</a>
 </div>
 
-<!-- ═══ FOOTER ═══ -->
-<footer id="footer">
-  <div class="footer-grid">
+<!-- BADGES -->
+<div id="badges">
+  <div class="badge-cell fu">
+    <div class="badge-ico">🌿</div>
+    <div class="badge-title">Outdoor Terrace</div>
+    <div class="badge-sub">Victoria Island's largest dining terrace</div>
+  </div>
+  <div class="badge-cell fu" style="transition-delay:.07s">
+    <div class="badge-ico">🎵</div>
+    <div class="badge-title">Live Music</div>
+    <div class="badge-sub">Curated performances weekly</div>
+  </div>
+  <div class="badge-cell fu" style="transition-delay:.13s">
+    <div class="badge-ico">📺</div>
+    <div class="badge-title">Live Sports</div>
+    <div class="badge-sub">Full coverage & premium bar</div>
+  </div>
+  <div class="badge-cell fu" style="transition-delay:.19s">
+    <div class="badge-ico">🍽</div>
+    <div class="badge-title">Private Dining</div>
+    <div class="badge-sub">Exclusive events & catering</div>
+  </div>
+</div>
 
-    <!-- Brand -->
-    <div class="footer-brand fu">
-      <div class="footer-logo">Chop First</div>
-      <p class="footer-tagline">Bold West African cuisine, handcrafted by our chefs and delivered hot to your door. Rich. Smoky. Zero compromise.</p>
-      <div class="footer-socials">
-        <a href="https://instagram.com" target="_blank" class="soc-link" title="Instagram">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-        </a>
-        <a href="https://facebook.com" target="_blank" class="soc-link" title="Facebook">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-        </a>
-        <a href="https://twitter.com" target="_blank" class="soc-link" title="Twitter / X">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
-        </a>
-        <a href="https://wa.me/2349000000000" target="_blank" class="soc-link" title="WhatsApp">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
-        </a>
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="fl">
+      <div class="eyebrow">About Cilantro</div>
+      <h2 class="h2-title">A Destination,<br>Not Just a <em>Restaurant</em></h2>
+      <p class="about-p">Cilantro Lagos is Victoria Island's most spacious dining destination — a world-class terrace restaurant where nature, luxury, and great food meet without compromise. We specialize in farm-fresh steak, authentic hand-stretched pizza and signature curry mains.</p>
+      <div class="about-quote">
+        "From a quiet lunch to a lively evening of live music and sport, Cilantro adapts to every mood while holding one promise — exceptional quality, every visit."
+      </div>
+      <p class="about-p">We source our ingredients daily, cook everything in-house, and obsess over every detail from the first bite to the final glass.</p>
+      <div class="features-grid">
+        <div class="feat-item"><span class="feat-dash"></span>Great Beer & Wine Selection</div>
+        <div class="feat-item"><span class="feat-dash"></span>Live Music & Sports</div>
+        <div class="feat-item"><span class="feat-dash"></span>Family & Group Friendly</div>
+        <div class="feat-item"><span class="feat-dash"></span>Private Dining Room</div>
+        <div class="feat-item"><span class="feat-dash"></span>All-Day Breakfast & Brunch</div>
+        <div class="feat-item"><span class="feat-dash"></span>Healthy & Vegetarian Options</div>
+        <div class="feat-item"><span class="feat-dash"></span>Wheelchair Accessible</div>
+        <div class="feat-item"><span class="feat-dash"></span>Free Parking Available</div>
+      </div>
+      <button class="btn-gold" onclick="scrollTo('reservations')">Reserve Your Table</button>
+    </div>
+    <div class="fr">
+      <div class="about-mosaic">
+        <div class="mos-cell">
+          <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=700&q=88" alt="Cilantro Kitchen">
+          <div class="mos-label">Farm-Fresh Kitchen</div>
+        </div>
+        <div class="mos-cell">
+          <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&q=88" alt="Cilantro Terrace">
+          <div class="mos-label">The Terrace</div>
+        </div>
+        <div class="mos-cell">
+          <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=600&q=88" alt="Cilantro Bar">
+          <div class="mos-label">Bar & Cocktails</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu-section">
+  <div class="menu-wrap">
+    <div class="menu-top">
+      <div class="fu">
+        <div class="eyebrow">Our Menu</div>
+        <h2 class="h2-title" style="font-size:clamp(2rem,3.8vw,3.4rem)">Fresh. Crafted. <em>Uncompromised.</em></h2>
+      </div>
+      <div class="tabs fu" style="transition-delay:.1s">
+        <button class="tab on" onclick="switchTab('indian',this)">🍛  Indian Mains</button>
+        <button class="tab" onclick="switchTab('pizza',this)">🍕  Pizza & Grill</button>
+        <button class="tab" onclick="switchTab('drinks',this)">🍹  Cocktails & Drinks</button>
       </div>
     </div>
 
-    <!-- Quick Links -->
+    <!-- INDIAN MAINS -->
+    <div class="panel on" id="p-indian">
+      <div class="cat-head"><span class="cat-head-label">Signature Curries</span><span class="cat-head-line"></span></div>
+      <div class="dish"><div class="dish-info"><div class="dish-name">Butter Chicken</div><div class="dish-desc">Tender chicken in rich tomato-cream sauce, fenugreek, garam masala. Served with garlic naan.</div><div class="dish-badges"><span class="dish-badge">Signature</span><span class="dish-badge">Mild</span></div></div><div class="dish-right"><div class="dish-price">₦6,500</div></div></div>
+      <div class="dish"><div class="dish-info"><div class="dish-name">Lamb Rogan Josh</div><div class="dish-desc">Slow-braised Kashmiri lamb, whole spices, yoghurt, saffron. Served with saffron basmati.</div><div class="dish-badges"><span class="dish-badge">Chef's Pick</span><span class="dish-badge">Medium</span></div></div><div class="dish-right"><div class="dish-price">₦9,200</div></div></div>
+      <div class="dish"><div class="dish-info"><div class="dish-name">Tiger Prawn Masala</div><div class="dish-desc">Tiger prawns in coastal masala, coconut milk, curry leaf, mustard seeds.</div><div class="dish-badges"><span class="dish-badge">Spicy</span></div></div><div class="dish-right"><div class="dish-price">₦10,500</div></div></div>
+      <div class="cat-head"><span class="cat-head-label">Vegetarian</span><span class="cat-head-line"></span></div>
+      <div class="dish"><div class="dish-info"><div class="dish-name">Paneer Tikka Masala</div><div class="dish-desc">House-made paneer, smoky tomato gravy, bell peppers, kasuri methi.</div><div class="dish-badges"><span class="dish-badge">Vegetarian</span><span class="dish-badge">Popular</span></div></div><div class="dish-right"><div class="dish-price">₦5,800</div></div></div>
+      <div class="dish"><div class="dish-info"><div class="dish-name">Dal Makhani</div><div class="dish-desc">Black lentils slow-cooked overnight, butter, cream, ginger-garlic. Rich and indulgent.</div><div class="dish-badges"><span class="dish-badge">Vegetarian</span></div></div><div class="dish-right"><div class="dish-price">₦4,800</div></div></div>
+      <div class="dish"><div class="dish-info"><div class="dish-name">Garlic Naan Basket</div><div class="dish-desc">Freshly made tandoor naan, garlic-herb butter, fresh coriander. Four pieces.</div><div class="dish-badges"><span class="dish-badge">Side</span></div></div><div class="dish-right"><div class="dish-price">₦2,200</div></div></div>
+    </div>
+
+    <!-- PIZZA & GRILL -->
+    <div class="panel" id="p-pizza">
+      <div class="cat-head"><span class="cat-head-label">Hand-Stretched Pizzas</span><span class="cat-head-line"></span></div>
+      <div class="dish"><div class="dish-info"><div class="dish-name">Cilantro Signature</div><div class="dish-desc">Tomato base, fresh mozzarella, rocket, Parma ham, truffle oil, aged Parmigiano.</div><div class="dish-badges"><span class="dish-badge">House Signature</span></div></div><div class="dish-right"><div class="dish-price">₦7,500</div></div></div>
+      <div class="dish"><div class="dish-info"><div class="dish-name">Margherita Classica</div><div class="dish-desc">San Marzano tomato, buffalo mozzarella, fresh basil, extra virgin olive oil.</div><div class="dish-badges"><span class="dish-badge">Vegetarian</span><span class="dish-badge">Classic</span></div></div><div class="dish-right"><div class="dish-price">₦5,200</div></div></div>
+      <div class="dish"><div class="dish-info"><div class="dish-name">Spicy Pepperoni</div><div class="dish-desc">House tomato sauce, mozzarella, double pepperoni, Calabrian chilli, honey drizzle.</div><div class="dish-badges"><span class="dish-badge">Spicy</span><span class="dish-badge">Popular</span></div></div><div class="dish-right"><div class="dish-price">₦6,800</div></div></div>
+      <div class="cat-head"><span class="cat-head-label">Farm-Fresh Grills</span><span class="cat-head-line"></span></div>
+      <div class="dish"><div class="dish-info"><div class="dish-name">350g Ribeye Steak</div><div class="dish-desc">Prime aged beef, compound herb butter, grilled asparagus, hand-cut chips, peppercorn jus.</div><div class="dish-badges"><span class="dish-badge">Farm Fresh</span><span class="dish-badge">Premium</span></div></div><div class="dish-right"><div class="dish-price">₦22,000</div></div></div>
+      <div class="dish"><div class="dish-info"><div class="dish-name">Whole Grilled Sea Bass</div><div class="dish-desc">Atlantic sea bass, lemon-caper butter, wilted market greens, crushed baby potato.</div><div class="dish-badges"><span class="dish-badge">Healthy</span></div></div><div class="dish-right"><div class="dish-price">₦16,500</div></div></div>
+      <div class="dish"><div class="dish-info"><div class="dish-name">Mixed Grill Platter</div><div class="dish-desc">Lamb chops, chicken wings, beef kebab, tiger prawns, chimichurri. For two people.</div><div class="dish-badges"><span class="dish-badge">For Two</span><span class="dish-badge">Popular</span></div></div><div class="dish-right"><div class="dish-price">₦28,000</div></div></div>
+    </div>
+
+    <!-- COCKTAILS & DRINKS -->
+    <div class="panel" id="p-drinks">
+      <div class="cat-head"><span class="cat-head-label">Signature Cocktails</span><span class="cat-head-line"></span></div>
+      <div class="dish"><div class="dish-info"><div class="dish-name">Lagos Garden Spritz</div><div class="dish-desc">Hendrick's gin, elderflower, fresh cucumber, lime, prosecco, fresh mint. The terrace essential.</div><div class="dish-badges"><span class="dish-badge">Signature</span><span class="dish-badge">Refreshing</span></div></div><div class="dish-right"><div class="dish-price">₦8,500</div></div></div>
+      <div class="dish"><div class="dish-info"><div class="dish-name">Cilantro Old Fashioned</div><div class="dish-desc">Buffalo Trace bourbon, coriander bitters, demerara, orange zest, smoked rosemary.</div><div class="dish-badges"><span class="dish-badge">Classic</span></div></div><div class="dish-right"><div class="dish-price">₦9,200</div></div></div>
+      <div class="dish"><div class="dish-info"><div class="dish-name">Mango Saffron Margarita</div><div class="dish-desc">Patrón Silver, fresh mango, saffron syrup, lime juice, chilli salt rim. A Lagos sunset.</div><div class="dish-badges"><span class="dish-badge">Signature</span><span class="dish-badge">Fruity</span></div></div><div class="dish-right"><div class="dish-price">₦8,800</div></div></div>
+      <div class="cat-head"><span class="cat-head-label">Wine & Beer</span><span class="cat-head-line"></span></div>
+      <div class="dish"><div class="dish-info"><div class="dish-name">House Red Wine</div><div class="dish-desc">Curated Old & New World reds. Ask your server for today's feature bottle.</div><div class="dish-badges"><span class="dish-badge">Wine List</span></div></div><div class="dish-right"><div class="dish-price">₦4,500</div><div class="dish-note">per glass</div></div></div>
+      <div class="dish"><div class="dish-info"><div class="dish-name">Draught Beer</div><div class="dish-desc">Rotating local and imported draught lager, pale ale and stout on tap.</div><div class="dish-badges"><span class="dish-badge">On Tap</span></div></div><div class="dish-right"><div class="dish-price">₦2,800</div><div class="dish-note">per pint</div></div></div>
+      <div class="dish"><div class="dish-info"><div class="dish-name">Mocktails & Fresh Juices</div><div class="dish-desc">Fresh-pressed juices, house lemonades, botanical mocktails and chilled smoothies.</div><div class="dish-badges"><span class="dish-badge">Non-Alcoholic</span></div></div><div class="dish-right"><div class="dish-price">₦2,500+</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TERRACE FEATURE -->
+<section id="terrace">
+  <div class="terrace-bg"></div>
+  <div class="terrace-overlay"></div>
+  <div class="terrace-content">
+    <div class="terrace-ornament fu">
+      <div class="orn-line"></div>
+      <div class="orn-diamond"></div>
+      <div class="orn-line"></div>
+    </div>
+    <h2 class="terrace-h2 fu" style="transition-delay:.1s">The Terrace<br>Is <em>Waiting</em></h2>
+    <p class="terrace-sub fu" style="transition-delay:.18s">Lagos has never looked this lush. Our world-class open terrace — designed for long evenings, great food and honest conversation — is the most spacious dining destination on Victoria Island.</p>
+    <div class="terrace-pills fu" style="transition-delay:.24s">
+      <span class="pill">Outdoor Seating</span>
+      <span class="pill">Live Music</span>
+      <span class="pill">Sports Bar</span>
+      <span class="pill">Private Events</span>
+      <span class="pill">Group Dining</span>
+    </div>
+    <div class="hero-btns fu" style="transition-delay:.3s">
+      <button class="btn-gold" onclick="scrollTo('reservations')">Reserve the Terrace</button>
+      <a href="https://wa.me/2341234567890" class="btn-ghost" target="_blank">WhatsApp Concierge</a>
+    </div>
+  </div>
+</section>
+
+<!-- PRESS -->
+<section id="press">
+  <div class="press-inner">
+    <div class="fu">
+      <div class="eyebrow">Recognition</div>
+      <h2 class="h2-title">What the World <em>Says</em></h2>
+    </div>
+    <div class="press-grid">
+      <div class="press-card fu">
+        <div class="press-pub">Vogue</div>
+        <p class="press-quote">Featured in Vogue's Lagos travel guide as a must-visit dining destination on Victoria Island.</p>
+        <a href="#" class="press-link">Read Feature →</a>
+      </div>
+      <div class="press-card fu" style="transition-delay:.07s">
+        <div class="press-pub">The Guardian</div>
+        <p class="press-quote">Celebrated for setting new standards in Lagos dining — a landmark destination since its opening.</p>
+        <a href="#" class="press-link">Read Story →</a>
+      </div>
+      <div class="press-card fu" style="transition-delay:.13s">
+        <div class="press-pub">Eat Drink Lagos</div>
+        <p class="press-quote">A perennial favourite for expats and Lagosians alike — the terrace is second to none in the city.</p>
+        <a href="#" class="press-link">Read Review →</a>
+      </div>
+      <div class="press-card fu" style="transition-delay:.19s">
+        <div class="press-pub">Pulse Nigeria</div>
+        <p class="press-quote">Recognised as one of Lagos' finest multi-cuisine destinations with an unmatched outdoor experience.</p>
+        <a href="#" class="press-link">Read More →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div id="stats">
+  <div class="stat-cell fu"><div class="stat-n">All Day</div><div class="stat-l">Breakfast to Late Night</div></div>
+  <div class="stat-cell fu" style="transition-delay:.07s"><div class="stat-n">7 Days</div><div class="stat-l">Open Every Day</div></div>
+  <div class="stat-cell fu" style="transition-delay:.13s"><div class="stat-n">300+</div><div class="stat-l">Covers — The Terrace</div></div>
+  <div class="stat-cell fu" style="transition-delay:.19s"><div class="stat-n">4.8★</div><div class="stat-l">Average Guest Rating</div></div>
+</div>
+
+<!-- RESERVATIONS -->
+<section id="reservations">
+  <div class="res-wrap fu">
+    <div class="eyebrow" style="justify-content:center">Reservations</div>
+    <h2 class="res-h2">Reserve Your <em>Experience</em></h2>
+    <p class="res-sub">Walk-ins are always welcome. For groups, the private terrace, or guaranteed seating on weekends, we strongly recommend booking in advance.</p>
+    <div class="hours-grid" style="margin:0 auto 52px">
+      <span class="h-day">Mon — Fri</span><span class="h-time">All-day dining — Breakfast through Late Night</span>
+      <span class="h-day">Sat & Sun</span><span class="h-time">Brunch from 10:00am — Late Night</span>
+      <span class="h-day">Private Events</span><span class="h-time">By arrangement — contact us directly</span>
+      <span class="h-day">Kids' Menu</span><span class="h-time">Available all sessions · High chairs provided</span>
+    </div>
+    <div class="res-actions">
+      <a href="https://wa.me/2341234567890" class="btn-gold" target="_blank">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+        Book via WhatsApp
+      </a>
+      <a href="tel:+2341234567890" class="btn-ghost">Call +234 123 456 7890</a>
+    </div>
+    <div class="res-note">
+      <span class="res-note-icon">🌿</span>
+      Groups of 10 or more are welcomed with a bespoke set terrace menu. For private dining, corporate events and exclusive buyouts, contact our events team directly via WhatsApp.
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="footer">
+  <div class="footer-top">
+    <div class="fu">
+      <div class="f-logo-name">Cilantro</div>
+      <span class="f-logo-tag">Nature Meets Luxury · Victoria Island, Lagos</span>
+      <p class="f-tagline">A spacious terrace destination on Victoria Island. Farm-fresh, unhurried, unforgettable.</p>
+      <div class="f-socials">
+        <a href="https://instagram.com" target="_blank" class="fsoc" title="Instagram">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="https://facebook.com" target="_blank" class="fsoc" title="Facebook">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a href="https://wa.me/2341234567890" target="_blank" class="fsoc" title="WhatsApp">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+        </a>
+      </div>
+    </div>
     <div class="fu" style="transition-delay:.06s">
-      <div class="footer-col-title">Navigate</div>
-      <div class="footer-links">
-        <a href="#about">About Us</a>
+      <div class="f-col-title">Navigate</div>
+      <div class="f-links">
         <a href="#menu-section">Menu</a>
+        <a href="#about">About</a>
+        <a href="#terrace">The Terrace</a>
+        <a href="#press">Press</a>
+        <a href="#stats">Highlights</a>
         <a href="#reservations">Reservations</a>
-        <a href="#why">Our Promise</a>
         <a href="#footer">Contact</a>
       </div>
     </div>
-
-    <!-- Hours -->
     <div class="fu" style="transition-delay:.1s">
-      <div class="footer-col-title">Opening Hours</div>
-      <div class="footer-links" style="gap:14px">
-        <div>
-          <div style="font-size:.72rem;color:var(--gold);font-weight:600;margin-bottom:3px">Mon — Fri</div>
-          <div style="font-size:.78rem;font-weight:300;color:rgba(240,228,204,.5)">8:00 am — 12:00 am</div>
-        </div>
-        <div>
-          <div style="font-size:.72rem;color:var(--gold);font-weight:600;margin-bottom:3px">Sat & Sun</div>
-          <div style="font-size:.78rem;font-weight:300;color:rgba(240,228,204,.5)">10:00 am — 12:00 am</div>
-        </div>
-        <div style="margin-top:8px">
-          <div style="font-size:.72rem;color:var(--gold);font-weight:600;margin-bottom:3px">Public Holidays</div>
-          <div style="font-size:.78rem;font-weight:300;color:rgba(240,228,204,.5)">12:00 pm — 10:00 pm</div>
-        </div>
+      <div class="f-col-title">Opening Hours</div>
+      <div class="f-links" style="gap:18px">
+        <div><div style="font-size:.6rem;color:var(--gold);font-weight:600;letter-spacing:.16em;text-transform:uppercase;margin-bottom:4px">Mon — Fri</div><div style="font-size:.74rem;font-weight:300;color:rgba(245,240,232,.38)">All day — Breakfast to Late</div></div>
+        <div><div style="font-size:.6rem;color:var(--gold);font-weight:600;letter-spacing:.16em;text-transform:uppercase;margin-bottom:4px">Sat & Sun</div><div style="font-size:.74rem;font-weight:300;color:rgba(245,240,232,.38)">Brunch 10am — Late Night</div></div>
+        <div><div style="font-size:.6rem;color:var(--gold);font-weight:600;letter-spacing:.16em;text-transform:uppercase;margin-bottom:4px">Private Events</div><div style="font-size:.74rem;font-weight:300;color:rgba(245,240,232,.38)">By arrangement</div></div>
       </div>
     </div>
-
-    <!-- Address + Map -->
     <div class="fu" style="transition-delay:.14s">
-      <div class="footer-col-title">Find Us</div>
-      <div class="footer-address">
-        <strong>Chop First Restaurant</strong>
-        14 Admiralty Way,<br>
-        Lekki Phase 1,<br>
-        Lagos, Nigeria<br><br>
-        📞 <a href="tel:+2349000000000">+234 900 000 0000</a><br>
-        📱 <a href="https://wa.me/2349000000000" target="_blank">WhatsApp Us</a><br>
-        ✉️ <a href="mailto:hello@chopfirst.ng">hello@chopfirst.ng</a>
+      <div class="f-col-title">Find Us</div>
+      <div class="f-addr">
+        <strong>Cilantro Lagos</strong>
+        Victoria Island,<br>Lagos, Nigeria<br><br>
+        📞 <a href="tel:+2341234567890">+234 123 456 7890</a><br>
+        📱 <a href="https://wa.me/2341234567890" target="_blank">WhatsApp Concierge</a><br>
+        🌿 <span style="color:rgba(245,240,232,.3)">Free parking available on-site</span>
       </div>
-      <div class="footer-map">
-        <iframe
-          src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBQ55g-IgRRgXrd803PTWDTb7kd6aAitNQ&q=Lekki+Phase+1,Lagos,Nigeria"
-          allowfullscreen loading="lazy" title="Chop First Location">
-        </iframe>
+      <div class="f-map">
+        <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAtXm0x23nRCgazjDV2Kl3GTHRP411ougQ&q=Victoria+Island,+Lagos,+Nigeria" allowfullscreen loading="lazy" title="Cilantro Location"></iframe>
       </div>
     </div>
-
   </div>
-
   <div class="footer-bottom">
-    <p class="footer-copy">© 2025 Chop First. All Rights Reserved.</p>
-    <p class="footer-copy">Handcrafted with ❤️ in Lagos</p>
+    <p class="f-copy">© 2024 Cilantro Lagos. All Rights Reserved.</p>
+    <p class="f-copy">Nature Meets Luxury · Victoria Island, Lagos</p>
   </div>
 </footer>
 
-<!-- ═══ CHECKOUT BAR ═══ -->
-<div id="bar">
-  <div>
-    <div class="bar-info-label">
-      <span class="bar-badge" id="cb">0</span>
-      <span id="cl">Items in Cart</span>
-    </div>
-    <div class="bar-subtotal" id="ct">Subtotal: ₦0</div>
-  </div>
-  <button class="bar-send" onclick="openWhatsApp()">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
-    Send Order via WhatsApp
-  </button>
+<!-- MOBILE STICKY BAR -->
+<div id="mob-bar">
+  <button class="mb-btn mb-menu" onclick="scrollTo('menu-section')">🍽 View Menu</button>
+  <button class="mb-btn mb-book" onclick="scrollTo('reservations')">📅 Book Reservations</button>
 </div>
 
 <script>
-const PHONE = '2349000000000';
-const cart = [];
+/* Custom cursor */
+const cd=document.getElementById('cd'),cr=document.getElementById('cr');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cd.style.left=mx+'px';cd.style.top=my+'px';});
+(function anim(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;cr.style.left=rx+'px';cr.style.top=ry+'px';requestAnimationFrame(anim);})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cd.style.width='14px';cd.style.height='14px';cr.style.width='54px';cr.style.height='54px';});
+  el.addEventListener('mouseleave',()=>{cd.style.width='8px';cd.style.height='8px';cr.style.width='38px';cr.style.height='38px';});
+});
 
-/* Cart */
-function addToCart(btn, name, price) {
-  const f = cart.find(i => i.name === name);
-  f ? f.qty++ : cart.push({ name, price, qty: 1 });
-  btn.classList.add('added'); btn.textContent = '✓ Added';
-  setTimeout(() => { btn.classList.remove('added'); btn.textContent = 'Add +'; }, 1600);
-  updateBar();
-}
-function updateBar() {
-  const n = cart.reduce((s,i)=>s+i.qty,0);
-  const t = cart.reduce((s,i)=>s+i.price*i.qty,0);
-  document.getElementById('cb').textContent = n;
-  document.getElementById('cl').textContent = n===1?'Item in Cart':'Items in Cart';
-  document.getElementById('ct').textContent = 'Subtotal: ₦'+t.toLocaleString();
-  document.getElementById('bar').classList.toggle('on', n>0);
-}
-function openWhatsApp() {
-  if (!cart.length) return;
-  const msg = 'Hello Chop First! 🍛 I\'d like to order:\n\n'
-    + cart.map(i=>`• ${i.name} x${i.qty} — ₦${(i.price*i.qty).toLocaleString()}`).join('\n')
-    + '\n\n*Total: ₦'+cart.reduce((s,i)=>s+i.price*i.qty,0).toLocaleString()
-    + '*\n\nPlease confirm and share delivery details. Thank you!';
-  window.open('https://wa.me/'+PHONE+'?text='+encodeURIComponent(msg),'_blank');
-}
+/* Nav scroll */
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('scrolled',window.scrollY>80);
+});
 
 /* Drawer */
-function openDrawer() {
-  document.getElementById('drawer').classList.add('open');
-  document.getElementById('drawerBg').classList.add('open');
-  document.body.style.overflow = 'hidden';
+function openDrw(){
+  document.getElementById('drw').classList.add('on');
+  document.getElementById('drwBg').classList.add('on');
+  document.body.style.overflow='hidden';
 }
-function closeDrawer() {
-  document.getElementById('drawer').classList.remove('open');
-  document.getElementById('drawerBg').classList.remove('open');
-  document.body.style.overflow = '';
+function closeDrw(){
+  document.getElementById('drw').classList.remove('on');
+  document.getElementById('drwBg').classList.remove('on');
+  document.body.style.overflow='';
 }
 
-/* Nav scroll effect */
-window.addEventListener('scroll', () => {
-  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
-});
+/* Scroll to */
+function scrollTo(id){
+  document.getElementById(id).scrollIntoView({behavior:'smooth'});
+}
 
-/* Scroll fade-up */
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
-}, { threshold: 0.08 });
-document.querySelectorAll('.fu').forEach(el => obs.observe(el));
+/* Menu tabs */
+function switchTab(cat,btn){
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+  document.getElementById('p-'+cat).classList.add('on');
+}
+
+/* Scroll reveal */
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});
+},{threshold:0.07});
+document.querySelectorAll('.fu,.fl,.fr,.fs').forEach(el=>obs.observe(el));
 
 /* Hero entrance */
-const hels = document.querySelectorAll('.hero-eyebrow, .hero-title, .hero-sub, .hero-btns');
-hels.forEach((el, i) => {
-  el.style.cssText = `opacity:0;transform:translateY(22px);transition:opacity .7s ease ${i*.13}s,transform .7s ease ${i*.13}s`;
-  setTimeout(() => { el.style.opacity=1; el.style.transform='translateY(0)'; }, 200+i*130);
+const hEls=document.querySelectorAll('.hero-tag,.hero-h1,.hero-h1-sub,.hero-divider,.hero-sub,.hero-btns');
+hEls.forEach((el,i)=>{
+  el.style.cssText=`opacity:0;transform:translateY(26px);transition:opacity .9s ease ${i*.16}s,transform .9s ease ${i*.16}s`;
+  setTimeout(()=>{el.style.opacity=1;el.style.transform='translateY(0)';},300+i*160);
+});
+/* Hero stats entrance */
+const hStats=document.querySelectorAll('.hero-stat');
+hStats.forEach((el,i)=>{
+  el.style.cssText=`opacity:0;transform:translateX(20px);transition:opacity .8s ease ${.5+i*.12}s,transform .8s ease ${.5+i*.12}s`;
+  setTimeout(()=>{el.style.opacity=1;el.style.transform='translateX(0)';},800+i*120);
 });
 </script>
-
 </body>
 </html>
